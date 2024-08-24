@@ -248,3 +248,7 @@ export const SignUp=()=>{
         </div>
     )
 }
+
+// axios.post('http://localhost:9001/customer/saveCustomer',Customer)
+//             .then(res=>{return res})
+//             .catch((err)=>{console.log(err.message)})
