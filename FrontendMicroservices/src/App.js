@@ -6,12 +6,14 @@ import { Help } from './pages/help'
 import { About } from './pages/about'
 import { ResetPassword } from './pages/resetPassword'
 import { Profile } from './pages/profile'
+import { Landing } from './pages/landing'
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/"  element={<Home />}/>
+        <Route path='/' element={<Landing />} />
+        <Route path="/home"  element={<Home />}/>
         <Route path='/login' element={<Login />}/>
         <Route path='/signUp' element={<SignUp />} />
         <Route path='/help' element={<Help />} />

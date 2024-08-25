@@ -19,7 +19,7 @@ export const Navbar=()=>{
     }
 
     const handleHomelick=()=>{
-        navigate('/')
+        navigate('/home')
     }
 
     const handleAboutClick=()=>{
@@ -54,7 +54,7 @@ export const Navbar=()=>{
                 }
                 {
                     isLoggedIn?
-                    (<button className="nav_container_one_button" onClick={handlesignUpClick}>My Cart  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>):
+                    (<button className="nav_container_one_button" onClick={()=>{alert('Need to be set')}}>MyCart  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>):
                     (<button className="nav_container_one_button" onClick={handlesignUpClick}>SignUp  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>)
 
                 }
@@ -63,8 +63,8 @@ export const Navbar=()=>{
             </div>
                 {
                     isLoggedIn?
-                    (<img src={require("../images/bg1.png")} alt='logo' onClick={handleProfileClick} className="nav_container_one_logo"/>):
-                    (<img src={require("../images/bg1.png")} alt='logo' className="nav_container_one_logo"/>)
+                    (<img src={require("../images/logo.png")} alt='logo' onClick={handleProfileClick} className="nav_container_one_logo"/>):
+                    (<img src={require("../images/logo.png")} alt='logo' className="nav_container_one_logo"/>)
                 }
         </div>
     )

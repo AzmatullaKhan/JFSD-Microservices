@@ -20,8 +20,8 @@ export const Login=()=>{
         .then(res=>{
             localStorage.setItem('username',res.data.username)
             localStorage.setItem('password',res.data.password)
-            localStorage.setItem('mobileNumber',res.data.mobileNumber)
-            localStorage.setItem('dateOfBirth',res.data.dateOfBirth)
+            localStorage.setItem('mobileNumber',res.data.mobile_number)
+            localStorage.setItem('dateOfBirth',res.data.date_of_birth)
             localStorage.setItem('gender',res.data.gender)
             localStorage.setItem('error', 'Proceed')
         })

@@ -10,7 +10,7 @@ export const Profile=()=>{
     gender=localStorage.getItem('gender')
     password=localStorage.getItem('password')
 
-    let isMale = (gender==='Male')?true:false;
+    let isMale = (gender==='male')?true:false;
 
     const handleEyeClick=()=>{
         let t=document.getElementById('profile_password').type
@@ -63,10 +63,7 @@ export const Profile=()=>{
             password=document.getElementById('profile_password').value
             let mobileNumber= document.getElementById('profile_mobileNumber').value
 
-            // console.log(mobileNumber,pass)
-            axios.post('http://localhost:5000/loginServer/updaePassword',{
-                mobileNumber, password
-            })
+            axios.post('http://localhost:9001/customer/changePassword/'+mobileNumber+'/'+password)
             .then(res=>{console.log(res)})
             .catch(err=>{console.log(err)})
 
