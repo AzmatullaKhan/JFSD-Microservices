@@ -7,7 +7,7 @@ export const Login=()=>{
     let navigate= useNavigate();
 
     const handleHomeClick=()=>{
-        navigate('/');
+        navigate('/home');
     }
     const handleReesetClick=()=>{
         navigate('/resetPassword')

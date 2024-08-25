@@ -8,7 +8,7 @@ export const SignUp=()=>{
     
     let navigate= useNavigate();
     const handleHomeClick=()=>{
-        navigate('/')
+        navigate('/home')
     }
 
     function getTodayDate(){

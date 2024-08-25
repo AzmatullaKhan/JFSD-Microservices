@@ -14,15 +14,12 @@ hr{
 ----------------------------------------------------------------------------------------------------------------------------------------- */
 
 .landing_container_one{
-    height: 1850px;
+    height: 850px;
     width:1492px;
     padding: 0px 0px;
     background-color: #fff;
     background-size: cover;
     backdrop-filter: grayscale(10px);
-    /* border-left:10px solid;
-    border-right:10px solid;
-    border-bottom:10px solid; */
     border-radius: 12px;
 }
 
@@ -100,18 +97,35 @@ hr{
     font-family: cursive;
     background-color: #fff;
 }
-.landing_container_four{
-    height:500px;
-    width:1400px;
-    border: 1px solid;
-    margin: 30px auto;
+.landingpage_button{
+    height:50px;
+    width:220px;
+    background-color: transparent;
+    outline: none;
+    border: 3px solid #a7cede;
+    border-radius: 12px;
+    margin:0px 20px 0px 0px;
+    color: #000;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    font-size: 20px;
+    font-variant: small-caps;
+    overflow: hidden;
+    transition: all 0.4s ease 0s;
+    animation: landingpage_button-animation 2s ease 0s;
 }
-.landing_container_five{
-    height:500px;
-    width:1400px;
-    border: 1px solid;
-    margin: 30px auto;
+@keyframes landingpage_button-animation {
+    0%{position: relative;top:200px;opacity: 0;}
+    100%{position: relative;top:0px;opacity: 1;}
 }
+
+.landingpage_button:hover{
+    height:50px;
+    width:230px;
+    background-color: #000;
+    color: #fff;
+}
+
 /* -----------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------

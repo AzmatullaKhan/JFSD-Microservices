@@ -1,14 +1,17 @@
-import {useEffect} from 'react';
 import './allPages.css'
-import AOS from 'aos'
-import 'aos/dist/aos.css';
+import { useNavigate } from 'react-router-dom'
 
 export const Landing = ()=>{
 
-    useEffect(()=>{
-        AOS.init({duration:1000})
-      }, [])
+    let navigate = useNavigate();
 
+    const handleExploreFashionClick=()=>{
+        navigate('/home')
+    }
+
+    const handleJoinWithUsClick=()=>{
+        alert('Need to be done')
+    }
     return(
         <div className="landing_container_one">
             <div style={{display:"flex", justifyContent:"space-evenly"}}>
@@ -21,18 +24,12 @@ export const Landing = ()=>{
             </div>
             <div className="landing_container_three">
                 <h className="landing_container_three_head">LoomCraft</h>
-                <span style={{backgroundColor:"#fff", fontStyle:"italic"}}>-Scroll down to get started👇</span>
+                <span style={{backgroundColor:"#fff", fontStyle:"italic"}}>-Welcome to our website😊</span>
             </div>
-            <section data-aos="fade-right" data-aos-offset="200">
-                <div className="landing_container_four">
-
-                </div>
-            </section>
-            <section data-aos="fade-left" data-aos-offset="200">
-                <div  className="landing_container_five">
-
-                </div>
-            </section>
+            <center>
+                <button className="landingpage_button" onClick={handleExploreFashionClick}>Explore Fashion 🤓</button>
+                <button className="landingpage_button" onClick={handleJoinWithUsClick}>Join With Us 🤝</button>
+            </center>
         </div>
     )
 }
