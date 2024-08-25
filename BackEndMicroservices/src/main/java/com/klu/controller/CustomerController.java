@@ -1,6 +1,6 @@
 package com.klu.controller;
 
-import java.util.List;
+import java.util.List; 
 
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.gson.Gson;
 import com.klu.model.Customer;
 import com.klu.services.CustomerService;
 
@@ -53,4 +54,48 @@ public class CustomerController {
 		}
 		return "proceed";
 	}
+	
+	@GetMapping("/login/{username}")
+	public String loginCustomer(@PathVariable String username) {
+			List<Customer> customer_list = CS.getCustomers();
+			for (Customer customer : customer_list) {
+				String in_username = customer.getUsername();
+				String out_username = username;
+				
+				if(in_username.toLowerCase().equals(out_username.toLowerCase()))
+					return new Gson().toJson(customer);
+			}
+		return "Stop";
+	}
+	
+	@GetMapping("/resetPassword/{number}")
+	public String checkCustomerOnMobileNumber(@PathVariable String number){
+		List<Customer> customer_list = CS.getCustomers();
+		for (Customer customer : customer_list) {
+			String in = customer.getMobile_number();
+			String out = number;
+			
+			if(in.equals(out))
+				return "proceed";
+		}
+		return "stop";
+	}
+	
+	@PostMapping("/changePassword/{number}/{password}")
+	public String changePassword(@PathVariable String number, @PathVariable String password) {
+		List<Customer> customer_list = CS.getCustomers();
+		for (Customer customer : customer_list) {
+			String in = customer.getMobile_number();
+			String out = number;
+			
+			if(in.equals(out)) {
+				customer.setPassword(password);
+				CS.saveCustomer(customer);
+				return "Success";
+			}
+		}
+		return "Failed";
+	}
+	
+	
 }

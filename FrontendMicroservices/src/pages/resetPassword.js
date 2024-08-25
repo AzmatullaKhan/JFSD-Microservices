@@ -28,9 +28,8 @@ export const ResetPassword=()=>{
         e.preventDefault();
         let mobileNumber = document.getElementById('resetPassword_number').value
 
-        axios.post('http://localhost:5000/loginServer/getUserDetailsMobile',{
-            mobileNumber
-        }).then(res=>{localStorage.setItem('isValidUserNumber', (res.data.message))})
+        axios.get('http://localhost:9001/customer/resetPassword/'+mobileNumber)
+        .then(res=>{localStorage.setItem('isValidUserNumber', (res.data))})
         .catch(err=>{localStorage.setItem('isValidUserNumber', err.message)})
 
         setTimeout(()=>{
@@ -97,9 +96,7 @@ export const ResetPassword=()=>{
             let password = document.getElementById('resetPassword_changePassword').value
             let mobileNumber= document.getElementById('resetPassword_number').value
 
-            axios.post('http://localhost:5000/loginServer/updaePassword',{
-                mobileNumber, password
-            })
+            axios.post('http://localhost:9001/customer/changePassword/'+mobileNumber+'/'+password)
             .then(res=>{console.log(res)})
             .catch(err=>{console.log(err)})
             

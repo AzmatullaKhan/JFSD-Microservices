@@ -54,7 +54,7 @@ export const Navbar=()=>{
                 }
                 {
                     isLoggedIn?
-                    (<button className="nav_container_one_button" onClick={handlesignUpClick}>SomeBut  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>):
+                    (<button className="nav_container_one_button" onClick={handlesignUpClick}>My Cart  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>):
                     (<button className="nav_container_one_button" onClick={handlesignUpClick}>SignUp  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>)
 
                 }

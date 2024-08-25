@@ -16,15 +16,13 @@ export const Login=()=>{
     const validate=(e)=>{
         e.preventDefault()
         let username=document.getElementById('login_username').value
-        axios.post('http://localhost:5000/loginServer',{
-            username
-        })
+        axios.get('http://localhost:9001/customer/login/'+username)
         .then(res=>{
-            localStorage.setItem('username',res.data.message.username)
-            localStorage.setItem('password',res.data.message.password)
-            localStorage.setItem('mobileNumber',res.data.message.mobileNumber)
-            localStorage.setItem('dateOfBirth',res.data.message.dateOfBirth)
-            localStorage.setItem('gender',res.data.message.gender)
+            localStorage.setItem('username',res.data.username)
+            localStorage.setItem('password',res.data.password)
+            localStorage.setItem('mobileNumber',res.data.mobileNumber)
+            localStorage.setItem('dateOfBirth',res.data.dateOfBirth)
+            localStorage.setItem('gender',res.data.gender)
             localStorage.setItem('error', 'Proceed')
         })
         .catch(err=>{
