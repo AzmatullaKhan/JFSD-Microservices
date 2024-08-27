@@ -23,8 +23,8 @@ export const Landing = ()=>{
                 <img className="landing_container_two_image6" src={require("../images/landing_dress6.png")} style={{height:"750px"}} alt="image6"/> 
             </div>
             <div className="landing_container_three">
-                <h className="landing_container_three_head">LoomCraft</h>
-                <span style={{backgroundColor:"#fff", fontStyle:"italic"}}>-Welcome to our website😊</span>
+                <span className="landing_container_three_head">LoomCraft</span>
+                <span style={{fontStyle:"italic"}}>-Welcome to our website<span style={{fontStyle:"normal"}}>😊</span></span>
             </div>
             <center>
                 <button className="landingpage_button" onClick={handleExploreFashionClick}>Explore Fashion 🤓</button>
