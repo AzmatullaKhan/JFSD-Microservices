@@ -59,7 +59,8 @@ export const Navbar=()=>{
 
                 }
                 <button className="nav_container_one_button" onClick={handleHelpClick}> Help <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>
-                <button className="nav_container_one_button" onClick={handleAboutClick}>About   <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>
+                
+                <button className="nav_container_one_button" onClick={handleAboutClick}>About <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>
             </div>
                 {
                     isLoggedIn?

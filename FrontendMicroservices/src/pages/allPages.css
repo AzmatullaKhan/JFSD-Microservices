@@ -17,7 +17,7 @@ hr{
     height: 850px;
     width:1492px;
     padding: 0px 0px;
-    background-color: #fff;
+    background-color: #ffffff;
     background-size: cover;
     backdrop-filter: grayscale(10px);
     border-radius: 12px;
@@ -99,6 +99,28 @@ hr{
     0%{top: -1000px;opacity: 0;}
     100%{top: 0px;opacity: 1;}
 }
+
+.landing_container_three_changeAnimation{
+    position: absolute;
+    height: 140px;
+    width: 400px;
+    top: 0px;
+    margin-left: 550px;
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 12px;
+    box-sizing: border-box;
+    animation: landing_container_three_changeAnimation-animation 2s ease 0s;
+    opacity: 0;
+}
+
+@keyframes landing_container_three_changeAnimation-animation {
+    0%{top: 0px;opacity: 0;}
+    100%{top: -500px;opacity: 1;}
+}
+
 .landing_container_three_head{
     font-weight:100;
     font-size:60px;
@@ -136,6 +158,87 @@ hr{
     color: #fff;
 }
 
+
+.landing_container_two_changeAnimation1{
+    animation: landing_container_two_changeAnimation1-animation 1s ease-out 0s;
+    filter:drop-shadow(2px 2px 10px #000);
+    opacity: 0;
+}
+
+@keyframes landing_container_two_changeAnimation1-animation {
+    0%{position: relative;top: 0px;opacity: 1;}
+    10%{position: relative;top: 20px; opacity: 1;}
+    100%{position: relative;top: -1000px;opacity: 0;}
+}
+
+.landing_container_two_changeAnimation2{
+    animation: landing_container_two_changeAnimation2-animation 1.3s ease-out 0s;
+    filter:drop-shadow(2px 2px 10px #000);
+    opacity: 0;
+}
+
+@keyframes landing_container_two_changeAnimation2-animation {
+    0%{position: relative;top: 0px;opacity: 1;}
+    10%{position: relative;top: 20px; opacity: 1;}
+    100%{position: relative;top: -1000px;opacity: 0;}
+}
+.landing_container_two_changeAnimation3{
+    animation: landing_container_two_changeAnimation3-animation 1.3s ease-out 0s;
+    filter:drop-shadow(2px 2px 4px #000);
+    opacity: 0;
+}
+
+@keyframes landing_container_two_changeAnimation3-animation {
+    0%{position: relative;top: 0px;opacity: 1;}
+    10%{position: relative;top: 20px; opacity: 1;}
+    100%{position: relative;top: -1000px;opacity: 0;}
+}
+.landing_container_two_changeAnimation4{
+    animation: landing_container_two_changeAnimation4-animation 1.9s ease-out 0s;
+    filter:drop-shadow(2px 2px 24px #000);
+    position: relative;
+    top: 100px;
+    opacity: 0;
+}
+
+@keyframes landing_container_two_changeAnimation4-animation {
+    0%{position: relative;top: 100px;opacity: 1;}
+    10%{position: relative;top: 120px; opacity: 1;}
+    100%{position: relative;top: -1000px;opacity: 0;}
+}
+.landing_container_two_changeAnimation5{
+    animation: landing_container_two_changeAnimation5-animation 1.2s ease-out 0s;
+    filter:drop-shadow(2px 2px 10px #000);
+    opacity: 0;
+}
+
+@keyframes landing_container_two_changeAnimation5-animation {
+    0%{position: relative;top: 0px;opacity: 1;}
+    10%{position: relative;top: 20px; opacity: 1;}
+    100%{position: relative;top: -1000px;opacity: 0;}
+}
+.landing_container_two_changeAnimation6{
+    animation: landing_container_two_changeAnimation6-animation 1.9s ease-out 0s;
+    filter:drop-shadow(2px 2px 10px #000);
+    opacity: 0;
+}
+
+@keyframes landing_container_two_changeAnimation6-animation {
+    0%{position: relative;top: 0px;opacity: 1;}
+    10%{position: relative;top: 20px; opacity: 1;}
+    100%{position: relative;top: -1000px;opacity: 0;}
+}
+
+.landing_container_centerdiv_changedAnimation{
+    animation: landing_container_centerdiv_changedAnimation-animation 1.4s ease 0s;
+    opacity: 0;
+}
+@keyframes landing_container_centerdiv_changedAnimation-animation {
+    0%{position: relative;top: 0px;opacity: 1;}
+    10%{position: relative;top: -20px;opacity: 1;}
+    100%{position: relative;top:400px;opacity: 0;}
+}
+
 /* -----------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -152,6 +255,7 @@ hr{
     position: sticky;
     top: 0px;
     width:100%;
+    z-index: 2;
 }
 
 
@@ -161,7 +265,6 @@ hr{
 }
 .nav_container_one_button:nth-child(5){
     margin:0px;
-    animation: none;
 }
 .nav_container_one_button{
     height:50px;
@@ -173,7 +276,7 @@ hr{
     margin:0px 20px 0px 0px;
     color: #000;
     cursor: pointer;
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(22px);
     font-size: 20px;
     font-variant: small-caps;
     overflow: hidden;
@@ -188,8 +291,8 @@ hr{
     }
 }
 @keyframes nav_container_one_button-animation {
-    0%{width: 0px;}
-    100%{width: 120px;}
+    0%{height: 0px;}
+    100%{height: 50px;}
 }
 
 
@@ -262,6 +365,7 @@ hr{
     padding: 0px 0px;
     background-color: #fff;
     background-size: cover;
+    overflow: hidden;
     backdrop-filter: grayscale(10px);
 }
 

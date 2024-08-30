@@ -23,7 +23,7 @@ export const Login=()=>{
             localStorage.setItem('mobileNumber',res.data.mobile_number)
             localStorage.setItem('dateOfBirth',res.data.date_of_birth)
             localStorage.setItem('gender',res.data.gender)
-            localStorage.setItem('error', 'Proceed')
+            localStorage.setItem('error', res.data)
         })
         .catch(err=>{
             localStorage.removeItem('username')
@@ -31,18 +31,18 @@ export const Login=()=>{
             localStorage.removeItem('mobileNumber')
             localStorage.removeItem('dateOfBirth')
             localStorage.removeItem('gender')
-            localStorage.setItem('error', err.message)
+            localStorage.setItem('error', err.data)
         })
 
         let err;
         setTimeout(()=>{
             err=(localStorage.getItem('error'))
             
-            if(err==="Proceed"){
+            if(err!=="Stop"){
                 let password = document.getElementById('login_password').value
                 if(password === localStorage.getItem('password')){
                     localStorage.setItem('isLoggedIn', true)
-                    navigate('/')
+                    navigate('/home')
                 }
                 else   
                     alert('Incorrect Password')
@@ -98,7 +98,7 @@ export const Login=()=>{
                     </div>
                     <button className='login_container_two_button_href' onClick={handleReesetClick} type='button'>forgot password? reset here</button>
                     <button className='login_container_two_button' type='submit'>Login</button>
-                    <img src={require('../images/login-page.png')} alt='img' className='login_container_two_image'/>
+                    <img src={require('../images/login-page.jpg')} alt='img' className='login_container_two_image'/>
                     <button className='login_container_two_button' onClick={handleHomeClick} type='button'>Home</button>
                     <img src={require('../images/login-page-side.png')} className='login_container_three_image' alt='img'/>
                 </div>
