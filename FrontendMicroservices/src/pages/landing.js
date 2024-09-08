@@ -26,6 +26,16 @@ export const Landing = ()=>{
     }
     return(
         <div className="landing_container_one">
+            <div style={{position:"absolute",top:'0', zIndex:'1'}} className='main_container_animation'>
+                <img src={require('../images/logo.png')} alt='img' style={{width:"373px",height:"425px",opacity:'0.1'}}/>
+                <img src={require('../images/logo.png')} alt='img' style={{width:"373px",height:"425px",opacity:'0.1'}}/>
+                <img src={require('../images/logo.png')} alt='img' style={{width:"373px",height:"425px",opacity:'0.1'}}/>
+                <img src={require('../images/logo.png')} alt='img' style={{width:"373px",height:"425px",opacity:'0.1'}}/>
+                <img src={require('../images/logo.png')} alt='img' style={{width:"373px",height:"425px",opacity:'0.1'}}/>
+                <img src={require('../images/logo.png')} alt='img' style={{width:"373px",height:"425px",opacity:'0.1'}}/>
+                <img src={require('../images/logo.png')} alt='img' style={{width:"373px",height:"425px",opacity:'0.1'}}/>
+                <img src={require('../images/logo.png')} alt='img' style={{width:"373px",height:"425px",opacity:'0.1'}}/>
+            </div>
             <div style={{display:"flex", justifyContent:"space-evenly"}}>
                 <img className="landing_container_two_image1" id='image1' src={require("../images/landing_dress1.png")} style={{height:"500px"}} alt="imae1"/>
                 <img className="landing_container_two_image2" id='image2' src={require("../images/landing_dress2.png")} style={{height:"750px"}} alt="imae2"/> 
@@ -38,7 +48,7 @@ export const Landing = ()=>{
                 <span className="landing_container_three_head">LoomCraft</span>
                 <span style={{fontStyle:"italic"}}>-Welcome to our website<span style={{fontStyle:"normal"}}>😊</span></span>
             </div>
-            <center id='center_div'>
+            <center id='center_div' style={{position:"relative", zIndex:"2"}}>
                 <button className="landingpage_button" onClick={handleExploreFashionClick}>Explore Fashion 🤓</button>
                 <button className="landingpage_button" onClick={handleJoinWithUsClick}>Join With Us 🤝</button>
             </center>

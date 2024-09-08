@@ -125,6 +125,7 @@ hr{
     font-weight:100;
     font-size:60px;
     font-family: cursive;
+    font-weight: lighter;
     /* background-color: #fff; */
     /* filter:drop-shadow(1px 1px 1px #000); */
     font-style: italic;
@@ -255,7 +256,7 @@ hr{
     position: sticky;
     top: 0px;
     width:100%;
-    z-index: 2;
+    z-index: 9;
 }
 
 
@@ -364,16 +365,47 @@ hr{
     width:1492px;
     padding: 0px 0px;
     background-color: #fff;
-    background-size: cover;
     overflow: hidden;
     backdrop-filter: grayscale(10px);
+    overflow-y: scroll;
+}
+
+.main_container_animation{
+    animation: main_container_animation-animation 1.5s ease 0s;
+}
+@keyframes main_container_animation-animation {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
 }
 
 .main_container_two{
-    height: 770px;
-    width:1492px;
-    padding: 0px 0px;
-    margin-top:10px;
+    min-height: 770px;
+    min-width:1492px;
+    max-width:1492px;
+    margin:10px 30px;
+    z-index: 2;
+    position: relative;
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+}
+
+.main_container_two_dress{
+    height:700px;
+    width:400px;
+    margin: 20px 20px;
+    animation: main_container_animation-animation 1.5s ease 0s;
+
+}
+.main_container_two_dress_image{
+    height: 600px;
+    width: 400px;
+    animation: main_container_two_dress_image-animation 0.5s ease-out 0s;
+}
+@keyframes main_container_two_dress_image-animation {
+    0%{width: 380px;height: 580px;}
+    100%{width: 400px;height: 600px;}
 }
 
 /* -----------------------------------------------------------------------------------------------------------------------------------------
@@ -388,7 +420,7 @@ hr{
     width:1492px;
     padding: 0px 0px;
     background-color: #fff;
-    border: 1px solid #000;
+    border: 1px solid transparent;
 }
 
 .login_container_one_image{
@@ -542,7 +574,7 @@ hr{
     width:1492px;
     padding: 0px 0px;
     background-color: #fff;
-    border: 1px solid #000;
+    border: 1px solid transparent;
 }
 
 .signup_container_one_image{
