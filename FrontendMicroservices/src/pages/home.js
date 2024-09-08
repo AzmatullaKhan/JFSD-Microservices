@@ -1,4 +1,4 @@
-import './allPages.css'
+import './css/home.css'
 import { Navbar } from './nav'
 
 export const Home=()=>{

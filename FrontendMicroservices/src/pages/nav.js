@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import './allPages.css'
+import './css/nav.css'
 
 export const Navbar=()=>{
     let isLoggedIn = Boolean(localStorage.getItem('isLoggedIn'))

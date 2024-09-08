@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import './allPages.css'
+import './css/resetPassword.css'
 import axios from "axios"
 
 export const ResetPassword=()=>{

@@ -1,4 +1,4 @@
-import './allPages.css'
+import './css/about.css'
 import { Navbar } from './nav'
 
 export const About=()=>{

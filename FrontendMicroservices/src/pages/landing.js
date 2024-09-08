@@ -1,4 +1,4 @@
-import './allPages.css'
+import './css/landingpage.css'
 import { useNavigate } from 'react-router-dom'
 
 export const Landing = ()=>{
@@ -21,8 +21,13 @@ export const Landing = ()=>{
         
     }
 
-    const handleJoinWithUsClick=()=>{
-        alert('Need to be done')
+    const handleJoinWithUsMouseMove=()=>{
+        document.getElementById('landingpae_div_hidden').className='landingpae_div_visible'
+    }
+    const handleJoinWithUsMouseOut=()=>{
+        setTimeout(()=>{
+            document.getElementById('landingpae_div_hidden').className='landingpae_div_hidden'
+        }, 1300)
     }
     return(
         <div className="landing_container_one">
@@ -50,7 +55,11 @@ export const Landing = ()=>{
             </div>
             <center id='center_div' style={{position:"relative", zIndex:"2"}}>
                 <button className="landingpage_button" onClick={handleExploreFashionClick}>Explore Fashion 🤓</button>
-                <button className="landingpage_button" onClick={handleJoinWithUsClick}>Join With Us 🤝</button>
+                <button className="landingpage_button" onMouseOver={handleJoinWithUsMouseMove} onMouseOut={handleJoinWithUsMouseOut}>Join With Us 🤝</button>
+                <div className='landingpae_div_hidden' id='landingpae_div_hidden'>
+                    <button className="landingpae_div_hidden_button" >Login🤓</button><br></br>
+                    <button className="landingpae_div_hidden_button" >SignUp🛂</button>       
+                </div>
             </center>
         </div>
     )

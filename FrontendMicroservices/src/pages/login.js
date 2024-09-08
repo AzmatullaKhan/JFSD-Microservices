@@ -1,4 +1,4 @@
-import './allPages.css'
+import './css/login.css'
 import { useNavigate } from 'react-router-dom'
 import axios from "axios"
 

@@ -1,4 +1,4 @@
-import './allPages.css'
+import './css/profile.css'
 import { Navbar } from './nav'
 import axios from "axios"
 

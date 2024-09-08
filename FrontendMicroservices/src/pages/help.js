@@ -1,4 +1,4 @@
-import './allPages.css'
+import './css/help.css'
 import { Navbar } from './nav'
 export const Help=()=>{
 
