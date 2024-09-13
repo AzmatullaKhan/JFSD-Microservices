@@ -38,7 +38,7 @@
     animation: signup_container_one_image_signup-animation 1s ease-out;
 }
 @keyframes signup_container_one_image_signup-animation {
-    0%{margin-left: 400px;opacity: 0;z-index: 2}
+    0%{margin-left: 1000px;opacity: 0;z-index: 2}
     100%{margin-left:750px;opacity: 1;z-index: 2;}
 }
 

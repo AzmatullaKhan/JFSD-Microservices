@@ -29,6 +29,19 @@ export const Landing = ()=>{
             document.getElementById('landingpae_div_hidden').className='landingpae_div_hidden'
         }, 1300)
     }
+    const handleJoinWithUsSignUpClick=()=>{
+        document.getElementById('image1').className='landing_container_two_changeAnimation1'
+        document.getElementById('image2').className='landing_container_two_changeAnimation2'
+        document.getElementById('image3').className='landing_container_two_changeAnimation3'
+        document.getElementById('image4').className='landing_container_two_changeAnimation4'
+        document.getElementById('image5').className='landing_container_two_changeAnimation5'
+        document.getElementById('image6').className='landing_container_two_changeAnimation6'
+        document.getElementById('landing_container_three').className='landing_container_three_changeAnimation'
+        document.getElementById('center_div').className='landing_container_centerdiv_changedAnimation'
+        setTimeout(()=>{
+            navigate('/signUpEmployee')
+        },1400)
+    }
     return(
         <div className="landing_container_one">
             <div style={{position:"absolute",top:'0', zIndex:'1'}} className='main_container_animation'>
@@ -57,8 +70,10 @@ export const Landing = ()=>{
                 <button className="landingpage_button" onClick={handleExploreFashionClick}>Explore Fashion 🤓</button>
                 <button className="landingpage_button" onMouseOver={handleJoinWithUsMouseMove} onMouseOut={handleJoinWithUsMouseOut}>Join With Us 🤝</button>
                 <div className='landingpae_div_hidden' id='landingpae_div_hidden'>
+                    <hr style={{width:"50px",position:"absolute",marginLeft:"-250px",marginTop:"-30px",transform:"rotate(-45deg)",height:"2px"}}></hr>
                     <button className="landingpae_div_hidden_button" >Login🤓</button><br></br>
-                    <button className="landingpae_div_hidden_button" >SignUp🛂</button>       
+                    <hr style={{width:"50px",position:"absolute",marginLeft:"-250px",marginTop:"40px",transform:"rotate(45deg)",height:"2px"}}></hr>
+                    <button className="landingpae_div_hidden_button" onClick={handleJoinWithUsSignUpClick}>SignUp🛂</button>
                 </div>
             </center>
         </div>

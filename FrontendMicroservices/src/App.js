@@ -7,6 +7,7 @@ import { About } from './pages/about'
 import { ResetPassword } from './pages/resetPassword'
 import { Profile } from './pages/profile'
 import { Landing } from './pages/landing'
+import { SignUpEmployee } from './pages/signUpEmployee'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/resetPassword' element={<ResetPassword />}/>
         <Route path='/profile' element={<Profile />} />
+        <Route path='/signUpEmployee' element={<SignUpEmployee />} />
       </Routes>
     </>
   );
