@@ -8,6 +8,7 @@ import { ResetPassword } from './pages/resetPassword'
 import { Profile } from './pages/profile'
 import { Landing } from './pages/landing'
 import { SignUpEmployee } from './pages/signUpEmployee'
+import { LoginEmployee } from './pages/loginEmployee'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path='/resetPassword' element={<ResetPassword />}/>
         <Route path='/profile' element={<Profile />} />
         <Route path='/signUpEmployee' element={<SignUpEmployee />} />
+        <Route path='/loginEmployee' element={<LoginEmployee />}/>
       </Routes>
     </>
   );

@@ -1,3 +1,6 @@
+body{
+    overflow: hidden;
+}
 .signUpEmployee_container_one{
     height: 850px;
     width:1492px;
@@ -8,11 +11,11 @@
     overflow-y: scroll;
     background-image: url('../../images/employee_bg1.jpg');
     background-size: cover;
-    animation: signUpEmployee_container_one-animation 1s ease-out 0s;
+    animation: signUpEmployee_container_one-animation 1.5s ease-out 0s;
 }
 @keyframes signUpEmployee_container_one-animation {
-    0%{position: relative;left:400px;opacity: 0;}
-    100%{position: relative;left:0px;opacity: 1;}
+    0%{opacity: 0;}
+    100%{opacity: 1;}
 }
 .signUpEmployee_container_two{
         height: 700px;
@@ -26,11 +29,11 @@
         align-items: center;
         flex-direction: column;
         padding: 12px;
-        animation: signup_container_two-animation 1s ease-out 0s;
+        animation: signup_container_two-animation 1.8s ease-out 0s;
 }
 @keyframes signup_container_two-animation {
-    0%{position: relative;left:-800px;opacity: 0;}
-    100%{position: relative;left:0px;opacity: 1;}
+    0%{opacity: 0;}
+    100%{opacity: 1;}
 }
 .signUpEmployee_container_two_label{
     font-size: 20px;
