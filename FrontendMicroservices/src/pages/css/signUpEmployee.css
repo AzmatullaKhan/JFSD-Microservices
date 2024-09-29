@@ -29,9 +29,9 @@ body{
         align-items: center;
         flex-direction: column;
         padding: 12px;
-        animation: signup_container_two-animation 1.8s ease-out 0s;
+        animation: signupEmployee_container_two-animation 1.8s ease-out 0s;
 }
-@keyframes signup_container_two-animation {
+@keyframes signupEmployee_container_two-animation {
     0%{opacity: 0;}
     100%{opacity: 1;}
 }

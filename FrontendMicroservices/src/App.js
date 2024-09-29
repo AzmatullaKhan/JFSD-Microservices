@@ -9,6 +9,7 @@ import { Profile } from './pages/profile'
 import { Landing } from './pages/landing'
 import { SignUpEmployee } from './pages/signUpEmployee'
 import { LoginEmployee } from './pages/loginEmployee'
+import { HomeEmployee } from './pages/homeEmployee'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/signUpEmployee' element={<SignUpEmployee />} />
         <Route path='/loginEmployee' element={<LoginEmployee />}/>
+        <Route path='/homeEmployee' element={<HomeEmployee />} />
       </Routes>
     </>
   );

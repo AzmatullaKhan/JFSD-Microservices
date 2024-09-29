@@ -38,7 +38,7 @@
     animation: signup_container_one_image_signup-animation 1s ease-out;
 }
 @keyframes signup_container_one_image_signup-animation {
-    0%{margin-left: 1000px;opacity: 0;z-index: 2}
+    0%{margin-left: 400px;opacity: 0;z-index: 2}
     100%{margin-left:750px;opacity: 1;z-index: 2;}
 }
 
@@ -57,8 +57,8 @@
     animation: signup_container_two-animation 1s ease-out 0s;
 }
 @keyframes signup_container_two-animation {
-    0%{position: relative;left:400px;opacity: 0;}
-    100%{position: relative;left:0px;opacity: 1;}
+    0%{position: relative;margin-left:800px;opacity: 0;}
+    100%{position: relative;margin-left:500px;opacity: 1;}
 }
 .signup_container_two_hidden{
     display: none;
