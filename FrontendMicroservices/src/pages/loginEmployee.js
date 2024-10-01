@@ -78,9 +78,17 @@ export const LoginEmployee = () =>{
     return(
         <div className="loginEmployee_container_one">
             <div className="loginEmployee_container_two">
+                <div className='loginEmployee_container_extra'>
+                    <strong style={{fontSize:"16px", width:"280px",textAlign:"center", position:"absolute", marginTop:"-300px"}}>Welcome partner. LogIn to your account to know all the details regarding our Sales.</strong><br></br>
+                    <strong style={{textDecoration:"underline"}}>Details Like</strong>
+                    <p>1. Revenue generated 💲</p>
+                    <p>2. A detailed report regarding your sales 📃</p>
+                    <p>3. Orders placed ✅</p>
+                    <p>4. Mails regarding or from the customers 📲</p>
+                </div>
                 <form onSubmit={validate}>
                     <div className='loginEmployee_container_three'>
-                        <h1>Login 🔐</h1>
+                        <h1>Login 🔐</h1><br></br>
                         <div style={{display:'flex', flexDirection:'column', margin:"10px 0px", height:"70px"}}>
                             <label className='loginEmployee_container_three_label' id='loginEmployee_container_three_label'>Username</label>
                             <input type="text" className='loginEmployee_container_three_input' id='login_username' placeholder='***** Enter your registered username *****' required onChange={validateName}/>
@@ -90,7 +98,7 @@ export const LoginEmployee = () =>{
                             <input type="password" className='loginEmployee_container_three_input' id='login_password' placeholder='***** Enter the respective password *****' required minLength={8}/>
                             <div className='loginEmployee_container_three_input_small_eye' onClick={handleEyeClick}>👁️<p id='loginEmployee_container_three_input_small_eye_cross' style={{position:'relative', top:'-32px', left:'3px', fontSize:"24px", opacity:'1', marginTop:"7px"}}>/</p></div>
                         </div>
-                        <button className='loginEmployee_container_three_button_href' type='button'>forgot password? reset here</button>
+                        <button className='loginEmployee_container_three_button_href' type='button'>forgot password? reset here</button><br></br>
                         <button className='loginEmployee_container_three_button' type='submit'>Login</button>
                         <button className='loginEmployee_container_three_button' onClick={handleBackClick} type='button'>Back</button>
                     </div>

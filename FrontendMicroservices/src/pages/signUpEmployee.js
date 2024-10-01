@@ -182,7 +182,17 @@ export const SignUpEmployee = () =>{
 
     return(
         <div className="signUpEmployee_container_one">
-            <form action='#' onSubmit={validate}>
+            <form action='#' onSubmit={validate} className='signUpEmployee_container_extra'>
+                <div className='signUpEmployee_container_extra_one'>
+                    <strong style={{fontSize:"16px",textAlign:"center",width:"200px",position:"absolute",marginTop:"-450px"}}>We as a team can acheive anything that is possible through this.</strong>
+                    <strong style={{fontSize:"16px", textDecoration:"underline"}}>Benefits by collaborating with us🤝</strong>
+                    <p style={{fontSize:"14px"}}>1. Access to Global Market.🌍</p>
+                    <p style={{fontSize:"14px"}}>2. Increased Brand Visibility.📈</p>
+                    <p style={{fontSize:"14px"}}>3. Collaborative Network.🛜</p>
+                    <p style={{fontSize:"14px"}}>4. Sustainability Advocacy.👐</p>
+                    <p style={{fontSize:"14px"}}>5. Digital Transformation Support.</p>
+                    <strong style={{fontSize:"16px",textAlign:"center",width:"200px",position:"absolute",marginTop:"450px"}}>Thank You🙏</strong>
+                </div>
                 <div className="signUpEmployee_container_two" id='signUpEmployee_container_two'><br></br><br></br>
                     <div style={{display:'flex', flexDirection:'column', margin:"10px 0px", height:"70px"}}>
                         <div style={{alignSelf:"center"}}><label className='signUpEmployee_container_two_label' id='username_label'>Username</label><span className='signupEmployee_container_two_label_errormessage' id='signUpEmployee_container_two_label_one'>  *Use only (@,$,_) in your name</span></div>

@@ -3,18 +3,15 @@
     width:1494px;
     padding: 0px 0px;
     background-color: #fff;
-    overflow: hidden;
     backdrop-filter: grayscale(10px);
-    overflow-y: scroll;
     margin: 0px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 .homeEmployee_main_container_two{
     height:250px;
-    min-width:1694px;
-    max-width:1694px;
+    width:1494px;
     border-radius:0px 0px 100% 100%;
-    position: absolute;
-    margin-left: -100px;
     animation: homeEmployee_main_container_two-animation 2s ease 0s;
     background-image: linear-gradient(to right, rgb(19, 7, 248) , rgb(66, 71, 225), rgb(32, 18, 242));
     display: flex;
@@ -32,7 +29,6 @@
 .homeEmployee_main_container_three{
     height:110px;
     width:1494px;
-    margin-top: 270px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,4 +41,9 @@
     border: none;
     overflow: hidden;
     background-color: transparent;
+}
+.homeEmployee_main_container_four{
+    border: 1px solid;
+    height: auto;
+    width:1492px;
 }
