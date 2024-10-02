@@ -16,7 +16,7 @@ export const HomeEmployee=()=>{
         localStorage.removeItem('gender_employee')
         localStorage.setItem('isLoggedIn_employee', false)
         localStorage.removeItem('error_employee')
-        navigate('/')
+        navigate('/loginEmployee')
     }
     const handlePostOrderClick=()=>{
         document.getElementById('homeEmployee_main_container_three_postOrder').className='homeEmployee_main_container_three_postOrder_visible'
