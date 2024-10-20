@@ -6,9 +6,65 @@ export const HomeEmployee=()=>{
     
     let navigate= useNavigate();
 
+    let main_data = []
+
+    axios.get('http://localhost:9001/images/all').then(res=>{main_data=res.data}).catch(err=>{console.log(err)})
+
     setTimeout(()=>{
         document.getElementById('employee_username').textContent=localStorage.getItem('username_employee')
+        document.getElementById('homeEmployee_main_container_three_mail_containerOne_name').value = localStorage.getItem('username_employee')
     },10)
+    setTimeout(()=>{
+        let main_div = document.getElementById('homeEmployee_main_container_four')
+        console.log(main_data)
+        for(let i=0;i<main_data.length;i=i+1){
+            if(main_data[i].publisher === document.getElementById('employee_username').textContent){
+
+                let div = document.createElement('div')
+                div.className = 'homeEmployee_main_container_four_one'
+
+                let p1 = document.createElement('p')
+                p1.style.maxWidth = "40px"
+                p1.style.minWidth = "40px"
+                p1.textContent = (i+1)
+
+                let p2 = document.createElement('p')
+                p2.style.maxWidth = "250px"
+                p2.style.minWidth = "250px"
+                p2.textContent = main_data[i].name
+
+                let p3 = document.createElement('p')
+                p3.style.minWidth = "100px"
+                p3.style.maxWidth = "100px"
+                p3.textContent = main_data[i].cost
+
+                let p4 = document.createElement('p')
+                p4.style.minWidth = "200px"
+                p4.style.maxWidth = "200px"
+                p4.textContent = main_data[i].materialUsed
+
+                let p5 = document.createElement('p')
+                p5.style.minWidth = "600px"
+                p5.style.maxWidth = "600px"
+                p5.textContent = main_data[i].description
+
+                let p6 = document.createElement('p6')
+                p6.style.minWidth = "50px"
+                p6.style.maxWidth = "50px"
+                p6.textContent = main_data[i].id
+
+                div.appendChild(p1)
+                div.appendChild(p2)
+                div.appendChild(p3)
+                div.appendChild(p4)
+                div.appendChild(p5)
+                div.appendChild(p6)
+
+                main_div.appendChild(div)
+            }
+        }
+    },2000)
+
     const handleLogoutClick=()=>{
         localStorage.removeItem('username_employee')
         localStorage.removeItem('password_employee')
@@ -154,6 +210,10 @@ export const HomeEmployee=()=>{
         setTimeout(()=>{
             document.getElementById('homeEmployee_main_container_three_mail').className='homeEmployee_main_container_three_mail_hidden'
         },900)
+        document.getElementById('homeEmployee_main_container_three_mail_containerOne_name').value =""
+        document.getElementById('homeEmployee_main_container_three_mail_containerOne_email').value=""
+        document.getElementById('homeEmployee_main_container_three_mail_containerOne_subject').value=""
+        document.getElementById('homeEmployee_main_container_three_mail_containerOne_desc').value=""
     }
     const handleOrderClick=()=>{
         document.getElementById('homeEmployee_main_container_three_orders').className='homeEmployee_main_container_three_orders_visible'
@@ -189,6 +249,23 @@ export const HomeEmployee=()=>{
     const handleFormSubmit=(e)=>{
         e.preventDefault()
     }
+
+    const handleMailSubmit = (e) =>{
+        e.preventDefault();
+        let username = document.getElementById('homeEmployee_main_container_three_mail_containerOne_name').value
+        let email = document.getElementById('homeEmployee_main_container_three_mail_containerOne_email').value
+        let subject = document.getElementById('homeEmployee_main_container_three_mail_containerOne_subject').value
+        let description = document.getElementById('homeEmployee_main_container_three_mail_containerOne_desc').value
+
+        let Email = {
+            username, email, subject, description
+        }
+
+        axios.post('http://localhost:9001/employee/employeeEmail',Email)
+        .then(res=>{return res})
+        .then(handleCloseMailClick())
+        .catch((err)=>{console.log(err.message)})
+    }
     return(
         <div className="homeEmployee_main_container_one">
             <div className="homeEmployee_main_container_two">
@@ -223,9 +300,17 @@ export const HomeEmployee=()=>{
             </div>
             <hr></hr>
             <p style={{textAlign:"center"}}>The List of Items You Published🤝</p>
-            <div className="homeEmployee_main_container_four">
-                
+            <div className="homeEmployee_main_container_four" id='homeEmployee_main_container_four'>
+                <div className='homeEmployee_main_container_four_one' style={{backdropFilter:"blur(22px)", position:"sticky", top:"0"}}>
+                    <p style={{position:"absolute", marginLeft:"-1375px", textDecoration:"underline", fontWeight:"bold",fontStyle:"italic"}}>Sno</p>
+                    <p style={{position:"absolute", marginLeft:"-1200px", textDecoration:"underline", fontWeight:"bold",fontStyle:"italic"}}>Name</p>
+                    <p style={{position:"absolute", marginLeft:"-650px", textDecoration:"underline", fontWeight:"bold",fontStyle:"italic"}}>Cost</p>
+                    <p style={{position:"absolute", marginLeft:"-350px", textDecoration:"underline", fontWeight:"bold",fontStyle:"italic"}}>Material Used</p>
+                    <p style={{position:"absolute", marginLeft:"100px", textDecoration:"underline", fontWeight:"bold",fontStyle:"italic"}}>Description</p>
+                    <p style={{position:"absolute", marginLeft:"1290px", textDecoration:"underline", fontWeight:"bold",fontStyle:"italic"}}>ID</p>
+                </div>
             </div>
+       
             <div className='homeEmployee_main_container_three_postOrder_hidden' id='homeEmployee_main_container_three_postOrder'>
                 <span style={{position:"absolute",margin:"0px 0px 0px 760px", color:"red",fontSize:"28px",cursor:"pointer"}} onClick={handleClosePostOrderClick}>X</span>
                 <div className='homeEmployee_main_container_three_postOrder_constraints_visible' id='homeEmployee_main_container_three_postOrder_constraints'>
@@ -278,7 +363,7 @@ export const HomeEmployee=()=>{
                     </div>
                 </form>
             </div>
-            <div className='homeEmployee_main_container_three_mail_hidden' id='homeEmployee_main_container_three_mail'>
+            <form className='homeEmployee_main_container_three_mail_hidden' id='homeEmployee_main_container_three_mail' onSubmit={handleMailSubmit}>
                 <span style={{position:"absolute",margin:"0px 0px 0px 760px", color:"red",fontSize:"28px",cursor:"pointer"}} onClick={handleCloseMailClick}>X</span>
                 <div className='homeEmployee_main_container_three_mail_constraints_visible' id='homeEmployee_main_container_three_mail_constraints'>
                     <strong style={{color:"#fff"}}>Make sure to remember</strong>
@@ -289,7 +374,7 @@ export const HomeEmployee=()=>{
                 <hr></hr>
                 <div style={{display:'flex', flexDirection:'column',justifyContent:"center", margin:"10px 0px", height:"70px"}}>
                         <label className='homeEmployee_main_container_three_mail_containerOne_label' id='homeEmployee_main_container_three_mail_containerOne_name_label'>Name</label>
-                        <input type="text" className='homeEmployee_main_container_three_mail_containerOne_input' id='homeEmployee_main_container_three_mail_containerOne_name' readOnly value={"Username"}/>
+                        <input type="text" className='homeEmployee_main_container_three_mail_containerOne_input' id='homeEmployee_main_container_three_mail_containerOne_name' readOnly />
                 </div>
                 <div style={{display:'flex', flexDirection:'column',justifyContent:"center", margin:"10px 0px", height:"70px"}}>
                         <label className='homeEmployee_main_container_three_mail_containerOne_label' id='homeEmployee_main_container_three_mail_containerOne_email_label'>Email</label>
@@ -304,7 +389,7 @@ export const HomeEmployee=()=>{
                         <textarea type="text" rows={60} cols={50} style={{minHeight:"90px", outline:"none"}} id='homeEmployee_main_container_three_mail_containerOne_desc' placeholder='***** Enter Description, be clear about your issue. If you want to remove an item, please provide it unique id. *****' required></textarea>
                 </div>
                 <button className='homeEmployee_main_container_three_mail_button'>Send</button>
-            </div>
+            </form>
             <div className='homeEmployee_main_container_three_orders_hidden' id='homeEmployee_main_container_three_orders'>
                 <span style={{position:"absolute",margin:"0px 0px 0px 450px", color:"red",fontSize:"28px",cursor:"pointer"}} onClick={handleCloseOrdersClick}>X</span>
             </div>

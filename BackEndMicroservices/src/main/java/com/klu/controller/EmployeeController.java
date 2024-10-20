@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.klu.model.Employee;
+import com.klu.model.EmployeeEmail;
+import com.klu.services.EmployeeEmailServices;
 import com.klu.services.EmployeeService;
 
 @RestController
@@ -22,6 +24,9 @@ public class EmployeeController {
 	
 	@Autowired
 	EmployeeService CS;
+	
+	@Autowired
+	EmployeeEmailServices EES;
 	
 	@PostMapping("/saveEmployee")
 	public String saveEmployee(@RequestBody Employee C) {
@@ -97,5 +102,9 @@ public class EmployeeController {
 		return "Failed";
 	}
 	
-	
+	@PostMapping("/employeeEmail")
+	public String saveEmployeeEmail(@RequestBody EmployeeEmail E) {
+		EES.saveEmail(E);
+		return E.toString();
+	}
 }
