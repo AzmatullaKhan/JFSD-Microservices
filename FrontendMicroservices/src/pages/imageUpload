@@ -1,0 +1,54 @@
+import React, { useState } from 'react';
+import axios from 'axios';
+
+const ImageUpload = () => {
+    const [images, setImages] = useState([null, null, null, null, null]);
+
+    const handleImageChange = (index, event) => {
+        const newImages = [...images];
+        newImages[index] = event.target.files[0];
+        setImages(newImages);
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+
+        images.forEach((image, index) => {
+            if (image) {
+                formData.append(`data${index + 1}`, image);
+            }
+        });
+
+        try {
+            const response = await axios.post('http://localhost:8080/images/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('Images uploaded successfully:', response.data);
+        } catch (error) {
+            console.error('Error uploading images:', error);
+        }
+    };
+
+    return (
+        <div>
+            <h1>Upload Images</h1>
+            <form onSubmit={handleSubmit}>
+                {[...Array(5)].map((_, index) => (
+                    <div key={index}>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={(event) => handleImageChange(index, event)}
+                        />
+                    </div>
+                ))}
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    );
+};
+
+export default ImageUpload;

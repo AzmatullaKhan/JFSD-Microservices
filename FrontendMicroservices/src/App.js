@@ -10,6 +10,7 @@ import { Landing } from './pages/landing'
 import { SignUpEmployee } from './pages/signUpEmployee'
 import { LoginEmployee } from './pages/loginEmployee'
 import { HomeEmployee } from './pages/homeEmployee'
+// import ImageDisplay from './pages/imageDisplay'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/signUpEmployee' element={<SignUpEmployee />} />
         <Route path='/loginEmployee' element={<LoginEmployee />}/>
         <Route path='/homeEmployee' element={<HomeEmployee />} />
+        {/* <Route path='/imagecheck' element={<ImageDisplay />} /> */}
       </Routes>
     </>
   );

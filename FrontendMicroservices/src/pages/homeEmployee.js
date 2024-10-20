@@ -1,5 +1,6 @@
 import './css/homeEmployee.css'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 export const HomeEmployee=()=>{
     
@@ -27,7 +28,7 @@ export const HomeEmployee=()=>{
         let name= document.getElementById('homeEmployee_main_container_three_postOrder_containerOne_name')
         let char=e.target.value;
         char=char[char.length-1]
-        if(!((char>='a' && char<='z') ||(char>='A' && char<='Z'))){
+        if(!((char>='a' && char<='z') ||(char>='A' && char<='Z') || char===" ")){
             name.value=name.value.slice(0, name.value.length-1);
             document.getElementById('homeEmployee_main_container_three_postOrder_containerOne_name_label').style.animation='error_animation-animation 1s ease-in-out 0s'
             setTimeout(()=>{
@@ -59,6 +60,12 @@ export const HomeEmployee=()=>{
             },1000)
         }
     }
+
+
+
+
+
+
     const validateNoOfPhotos=(e)=>{
         let name= document.getElementById('homeEmployee_main_container_three_postOrder_containerOne_numberOfPhotos')
         let char=e.target.value;
@@ -84,16 +91,46 @@ export const HomeEmployee=()=>{
                 photo.id='photo_'+i;
                 photo.accept='image/*'
                 photo.className='photo_input_holder'
-                
                 main_div.appendChild(photo)
             }
             let button = document.createElement('button')
             button.className='homeEmployee_main_container_three_postOrder_button'
             button.innerHTML="Submit"
-
+            button.type='submit'
+            button.onclick=handleSubmit
             main_div.appendChild(button)
         }
     }
+    const handleSubmit = async () => {
+        const formData = new FormData();
+        const numberOfPhotos = document.getElementById('homeEmployee_main_container_three_postOrder_containerOne_numberOfPhotos').value;
+        
+        formData.append('name', document.getElementById('homeEmployee_main_container_three_postOrder_containerOne_name').value);
+        formData.append('cost', document.getElementById('homeEmployee_main_container_three_postOrder_containerOne_cost').value);
+        formData.append('materialused', document.getElementById('homeEmployee_main_container_three_postOrder_containerOne_materials').value);
+        formData.append('description', document.getElementById('homeEmployee_main_container_three_postOrder_containerOne_desc').value);
+        formData.append('publisher', document.getElementById('employee_username').textContent)
+        
+        for (let i = 1; i <= numberOfPhotos; i++) {
+            const photo = document.getElementById(`photo_${i}`);
+            if (photo.files[0]) {
+                formData.append(`data${i}`, photo.files[0]);
+            }
+        }
+    
+        try {
+            const response = await axios.post('http://localhost:9001/images/upload', formData);
+            handleClosePostOrderClick();
+            alert('Data rendered successfully')
+            console.log(response)
+        } catch (error) {
+            alert('Error Submitting Order')
+        }
+    };
+    
+
+
+
     const handleClosePostOrderClick = () =>{
         document.getElementById('homeEmployee_main_container_three_postOrder').style.animation='homeEmployee_main_container_three_postOrder_hidden-animation 1s ease 0s'
         setTimeout(()=>{
@@ -148,6 +185,10 @@ export const HomeEmployee=()=>{
             document.getElementById('homeEmployee_main_container_three_revenue').className='homeEmployee_main_container_three_revenue_hidden'
         },900)
     }
+
+    const handleFormSubmit=(e)=>{
+        e.preventDefault()
+    }
     return(
         <div className="homeEmployee_main_container_one">
             <div className="homeEmployee_main_container_two">
@@ -194,7 +235,7 @@ export const HomeEmployee=()=>{
                     <p style={{margin:"0"}}>3. If you want to remove the item,a mail need to be sent to company.</p>
                 </div>
                 <hr></hr>
-                <div className='homeEmployee_main_container_three_postOrder_containerOne'>
+                <form className='homeEmployee_main_container_three_postOrder_containerOne' onSubmit={handleFormSubmit}>
                     <div style={{height:"400px"}}>
                         <div style={{display:'flex', flexDirection:'column', margin:"10px 0px", height:"70px"}}>
                             <div>
@@ -235,7 +276,7 @@ export const HomeEmployee=()=>{
                     <div style={{height:"400px", width:"300px",padding:"20px"}} id='image_container_postorder'>
                          
                     </div>
-                </div>
+                </form>
             </div>
             <div className='homeEmployee_main_container_three_mail_hidden' id='homeEmployee_main_container_three_mail'>
                 <span style={{position:"absolute",margin:"0px 0px 0px 760px", color:"red",fontSize:"28px",cursor:"pointer"}} onClick={handleCloseMailClick}>X</span>
