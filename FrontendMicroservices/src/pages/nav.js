@@ -22,9 +22,9 @@ export const Navbar=()=>{
         navigate('/home')
     }
 
-    const handleAboutClick=()=>{
-        navigate('/about')
-    }
+    // const handleAboutClick=()=>{
+    //     navigate('/about')
+    // }
 
     const handleBackClick=()=>{
         navigate('/')
@@ -51,21 +51,26 @@ export const Navbar=()=>{
         <div className="nav_container_one">
             <div className="nav_container_one_buttonContainer">
                 <button className="nav_container_one_button" onClick={handleHomelick}>Home    <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>
+                <button className="nav_container_one_button" onClick={handleHelpClick}> Help <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>
+                
+                {/* <button className="nav_container_one_button" onClick={handleAboutClick}>About <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button> */}
+                
+                {
+                    isLoggedIn?
+                    (<button className="nav_container_one_button" onClick={()=>{alert('Need to be set')}}>MyOrders  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>):
+                    (<button className="nav_container_one_button" onClick={()=>{alert('Need to be set')}}>About  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>)
+                }
+                {
+                    isLoggedIn?
+                    (<button className="nav_container_one_button" onClick={()=>{navigate('/customerCart')}}>MyCart  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>):
+                    (<button className="nav_container_one_button" onClick={handlesignUpClick}>SignUp  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>)
+
+                }
                 {
                     isLoggedIn?
                     (<button className="nav_container_one_button" onClick={handleLogoutClick}>Logout   <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>):
                     (<button className="nav_container_one_button" onClick={handleLoginClick}>Login   <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>)
                 }
-                {
-                    isLoggedIn?
-                    (<button className="nav_container_one_button" onClick={()=>{alert('Need to be set')}}>MyCart  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>):
-                    (<button className="nav_container_one_button" onClick={handlesignUpClick}>SignUp  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>)
-
-                }
-                <button className="nav_container_one_button" onClick={handleHelpClick}> Help <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>
-                
-                <button className="nav_container_one_button" onClick={handleAboutClick}>About <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>
-                
                 <button className="nav_container_one_button" onClick={handleBackClick} style={{marginLeft:"14px"}}>Back <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>
             </div>
                 {
