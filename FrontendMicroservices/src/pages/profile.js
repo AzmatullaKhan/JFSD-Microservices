@@ -10,7 +10,7 @@ export const Profile=()=>{
     gender=localStorage.getItem('gender')
     password=localStorage.getItem('password')
 
-    let isMale = (gender==='male')?true:false;
+    let isMale = (gender==='Male')?true:false;
 
     const handleEyeClick=()=>{
         let t=document.getElementById('profile_password').type

@@ -4,6 +4,9 @@ import './css/nav.css'
 export const Navbar=()=>{
     let isLoggedIn = Boolean(localStorage.getItem('isLoggedIn'))
 
+    let gender=localStorage.getItem('gender')
+    let isMale = (gender==='Male')?true:false;
+
     let navigate=useNavigate();
 
     const handleLoginClick=()=>{
@@ -75,7 +78,11 @@ export const Navbar=()=>{
             </div>
                 {
                     isLoggedIn?
-                    (<img src={require("../images/logo.png")} alt='logo' onClick={handleProfileClick} className="nav_container_one_logo"/>):
+                    (
+                        isMale?
+                        (<img className='nav_container_one_logo' src={require('../images/profileMale.png')} onClick={handleProfileClick} alt='gender'/>):
+                        (<img className='nav_container_one_logo' src={require('../images/profileFemale.png')} onClick={handleProfileClick} alt='gender'/>)
+                    ):
                     (<img src={require("../images/logo.png")} alt='logo' className="nav_container_one_logo"/>)
                 }
         </div>

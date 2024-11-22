@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 export const Home=()=>{
 
-    let dressId=null;
+    let dressId=[];
 
     let isLoggedIn = Boolean(localStorage.getItem('isLoggedIn'))
 
@@ -70,7 +70,7 @@ export const Home=()=>{
         document.getElementById('main_container_three').style.animation = 'main_container_three_visible-animation 1s ease 0s'
 
         let array = Array(e.target)
-        dressId = array[0].childNodes[0].src
+        dressId.push(array[0].childNodes[0].src)
     }
 
     const handleCloseContainerThree = () => {
@@ -147,7 +147,8 @@ export const Home=()=>{
         else{
             setTimeout(()=>{
                 localStorage.setItem('size', size)
-                localStorage.setItem('dressId', dressId)
+                localStorage.removeItem('dressId')
+                localStorage.setItem('dressId', JSON.stringify(dressId))
             },100)
             navigate('/buyDress')
         }
@@ -158,9 +159,9 @@ export const Home=()=>{
 
         for(let i=0;i<main_data.length;i=i+1){
             let main_images_data = main_data[i].images
-            if(dressId === main_images_data[0]){
+            if(dressId[0] === main_images_data[0]){
 
-                formData.append('data1', dressId);
+                formData.append('data1', dressId[0]);
                 formData.append('name', main_data[i].name);
                 console.log(typeof(main_data[i].name))
                 formData.append('cost', main_data[i].cost);

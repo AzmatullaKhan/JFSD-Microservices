@@ -1,5 +1,6 @@
 import axios from 'axios'
 import './css/customerCart.css'
+import { useNavigate } from 'react-router-dom'
 export const CustomerCart=()=>{
     let main_data = []
     axios.get('http://localhost:9001/customercart/all').then(res=>{main_data=res.data}).catch(err=>{console.log(err)})
@@ -9,6 +10,23 @@ export const CustomerCart=()=>{
     setTimeout(()=>{
         username = localStorage.getItem('username')
     },100)
+
+    let dressId = []
+
+    let items_count=Number(0)
+    let items_cost =Number(0)
+
+    const delivery_charge = new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+    }).format("10")
+
+    const platform_fee =new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+    }).format("10")
+
+    const navigate = useNavigate()
 
     const renderFunction=()=>{
         for(let i=0;i<main_data.length;i=i+1){
@@ -71,6 +89,10 @@ export const CustomerCart=()=>{
                 main_div.appendChild(mini_div)
                 main_div.appendChild(p5)
                 
+                items_count=items_count+1;
+                items_cost=items_cost+main_cost_data
+
+                dressId.push(main_data_images[0])
 
                 document.getElementById('customercart_container_three_id').appendChild(main_div)
 
@@ -78,10 +100,36 @@ export const CustomerCart=()=>{
             }
         }
     }
+    const calculate = () =>{
+        document.getElementById('customercart_container_four_itemsCount').textContent = "Items:     "+items_count
+        document.getElementById('customercart_container_four_itemsCost').textContent= new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR',
+        }).format(items_cost)
+        document.getElementById('customercart_container_four_deliveryCharge').textContent = delivery_charge
+        document.getElementById('customercart_container_four_platformFee').textContent = platform_fee
+        document.getElementById('customercart_container_four_totalAmount').textContent = new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR',
+        }).format(items_cost+20)
+    }
 
     setTimeout(() => {
         renderFunction()
+        calculate()
     }, 2000);
+
+
+    const handlebuyAllClick=()=>{
+        setTimeout(() => {
+            localStorage.removeItem('dressId')
+            localStorage.setItem('dressId', JSON.stringify(dressId))
+            navigate('/buyDress')
+        }, 100);
+    }
+    const handleBackClick=()=>{
+        navigate('/home')
+    }
     return(
         <div id='customercart_container_one' className='customercart_container_one'>
             <div style={{position:"absolute",top:'0', zIndex:'1'}} className='customercart_container_animation'>
@@ -96,8 +144,38 @@ export const CustomerCart=()=>{
             </div>
             <div className='customercart_container_two'>
                 <div className='customercart_container_three' id='customercart_container_three_id'>
-                    
                 </div>
+                <div className='customercart_container_four' style={{position:"sticky", top:"0"}}>
+                    <p style={{fontSize:"22px", weight:"bolder"}}>Order Details</p>
+                    <hr style={{width:"100%", margin:"-20px 0px 0px 0px"}}></hr><br></br>
+
+                    <div style={{display:"flex",justifyContent:"space-between",margin:"10px 0px"}}>
+                        <p style={{fontSize:"18px", weight:"bolder"}}>Price (<span id='customercart_container_four_itemsCount'></span>):</p>
+                        <p style={{fontSize:"18px", weight:"bolder"}} id='customercart_container_four_itemsCost'>Amount</p>
+                    </div>
+
+                    <div style={{display:"flex",justifyContent:"space-between",margin:"10px 0px"}}>
+                        <p style={{fontSize:"18px", weight:"bolder"}}>Delivery Charges:</p>
+                        <p style={{fontSize:"18px", weight:"bolder"}} id='customercart_container_four_deliveryCharge'>Amount</p>
+                    </div>
+
+                    <div style={{display:"flex",justifyContent:"space-between",margin:"10px 0px"}}>
+                        <p style={{fontSize:"18px", weight:"bolder"}}>Platform Fee:</p>
+                        <p style={{fontSize:"18px", weight:"bolder"}} id = 'customercart_container_four_platformFee'>Amount</p>
+                    </div>
+
+                    <hr style={{width:"100%"}}></hr><br></br>
+                    <div style={{display:"flex",justifyContent:"space-between",margin:"10px 0px"}}>
+                        <strong style={{fontSize:"22px", weight:"bolder"}}>Total Amount:</strong>
+                        <strong style={{fontSize:"22px", weight:"bolder"}} id='customercart_container_four_totalAmount'>Amount</strong>
+                    </div>
+
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <button className='customercart_container_one_button' onClick={handlebuyAllClick}>Proceed to Buy All</button>
+                </div>
+                <button className='customercart_container_one_button' onClick={handleBackClick} style={{marginLeft:"-1450px",width:"120px",position:"sticky",top:"0"}}>Back</button>
             </div>
         </div>
     )
