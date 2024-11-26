@@ -124,7 +124,60 @@ export const BuyDress=()=>{
 
     const handlePlaceOrderClick = (e) =>{
         e.preventDefault()
-        alert('Order Placed')
+        let name = document.getElementById("name").value
+        let mobileNumber = document.getElementById("mobileNumber").value
+        let pincode = document.getElementById("pincode").value
+        let locality = (document.getElementById("locality").value === "")?"NOT SET":document.getElementById("locality").value
+        let address = document.getElementById("address").value
+        let city = document.getElementById("city").value
+        let district = document.getElementById("district").value
+        let landmark = (document.getElementById("landmark").value === "")?"NOT SET":document.getElementById("locality").value
+        let alternateNumber = document.getElementById("alternateNumber").value
+        let amount = items_cost+20
+
+        const FormData = {name, mobileNumber, pincode, locality, address, city, district, landmark, alternateNumber, amount}
+
+        axios.post('http://localhost:9001/order/createOrder', FormData).then(res=>{localStorage.setItem('OrderId', res.data.razorpayOrderId)}).catch(err=>{console.log(err)})
+
+        var options = {
+            "key": "rzp_test_KpueYt3bEtdBmw", // Enter the Key ID generated from the Dashboard
+            "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "currency": "INR",
+            "name": "LoomCraft", //your business name
+            "description": "Buying the Selected Items",
+            "image": "https://example.com/your_logo",
+            "order_id": localStorage.getItem('OrderId'), //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response){
+                alert(response.razorpay_payment_id);
+                alert(response.razorpay_order_id);
+                alert(response.razorpay_signature)
+            },
+            "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
+                "name": name, //your customer's name
+                "email": "NA@gmail.com", 
+                "contact": mobileNumber  //Provide the customer's phone number for better conversion rates 
+            },
+            "notes": {
+                "address": "Razorpay Corporate Office"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+            
+        };
+        var rzp1 = new window.Razorpay(options);
+        rzp1.on('payment.failed', function (response){
+                alert(response.error.code);
+                alert(response.error.description);
+                alert(response.error.source);
+                alert(response.error.step);
+                alert(response.error.reason);
+                alert(response.error.metadata.order_id);
+                alert(response.error.metadata.payment_id);
+        });
+
+        rzp1.open();
+        e.preventDefault();
     }
     const handleBackClick=()=>{
         navigate('/home')
@@ -172,15 +225,15 @@ export const BuyDress=()=>{
 
                     <form className='buydress_container_five' onSubmit={handlePlaceOrderClick}>
                             <p style={{fontSize:"22px", weight:"bolder"}}>Address Here</p>
-                            <input type='text' placeholder="Name" className='buydress_container_five_input' required/>
-                            <input type='text' placeholder="Mobile Number" className='buydress_container_five_input' required/>
-                            <input type='text' placeholder="Pincode" className='buydress_container_five_input' required/>
-                            <input type='text' placeholder="Locallity" className='buydress_container_five_input' required/>
-                            <textarea style={{height:"80px", width:"380px",marginBottom:"20px",outline:"none"}} placeholder="Enter your address" required></textarea>
-                            <input type='text' placeholder="City" className='buydress_container_five_input' required/>
-                            <input type='text' placeholder="District" className='buydress_container_five_input' required/>
-                            <input type='text' placeholder="LandMark (Optional)" className='buydress_container_five_input'/>
-                            <input type='text' placeholder="Alternate Mobile Number" className='buydress_container_five_input' required/>
+                            <input type='text' placeholder="Name*" id='name' className='buydress_container_five_input' required/>
+                            <input type='text' placeholder="Mobile Number*" id='mobileNumber' className='buydress_container_five_input' required/>
+                            <input type='text' placeholder="Pincode*" id='pincode' className='buydress_container_five_input' required/>
+                            <input type='text' placeholder="Locallity" id='locality' className='buydress_container_five_input'/>
+                            <textarea style={{height:"80px", width:"380px",marginBottom:"20px",outline:"none"}} id='address' placeholder="Enter your address***" required></textarea>
+                            <input type='text' placeholder="City*" id='city' className='buydress_container_five_input' required/>
+                            <input type='text' placeholder="District*" id='district' className='buydress_container_five_input' required/>
+                            <input type='text' placeholder="LandMark (Optional)" id='landmark' className='buydress_container_five_input'/>
+                            <input type='text' placeholder="Alternate Mobile Number*" id='alternateNumber' className='buydress_container_five_input' required/>
                             <button type='submit' className='buyDress_container_one_button'>Place Order on Cash On Delivery</button>
                     </form>
                 </div>
