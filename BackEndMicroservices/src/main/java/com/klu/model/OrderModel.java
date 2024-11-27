@@ -12,7 +12,7 @@ public class OrderModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer orderId;
+	int orderId;
 	
 	String name;
 	String mobileNumber;
@@ -26,7 +26,15 @@ public class OrderModel {
 	Integer amount;
 	String razorpayOrderId;
 	String orderStatus;
-	public Integer getOrderId() {
+	
+	@Override
+	public String toString() {
+		return "OrderModel [orderId=" + orderId + ", name=" + name + ", mobileNumber=" + mobileNumber + ", pincode="
+				+ pincode + ", locality=" + locality + ", address=" + address + ", city=" + city + ", district="
+				+ district + ", landmark=" + landmark + ", alternateNumber=" + alternateNumber + ", amount=" + amount
+				+ ", razorpayOrderId=" + razorpayOrderId + ", orderStatus=" + orderStatus + "]";
+	}
+	public int getOrderId() {
 		return orderId;
 	}
 	public void setOrderId(Integer orderId) {
@@ -86,7 +94,7 @@ public class OrderModel {
 	public void setAlternateNumber(String alternateNumber) {
 		this.alternateNumber = alternateNumber;
 	}
-	public Integer getAmount() {
+	public int getAmount() {
 		return amount;
 	}
 	public void setAmount(Integer amount) {

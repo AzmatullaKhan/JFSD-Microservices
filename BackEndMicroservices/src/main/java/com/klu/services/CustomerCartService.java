@@ -38,4 +38,9 @@ public class CustomerCartService {
 	public List<CustomerCart> getAllCart(){
 		return CCR.findAll();
 	}
+	
+	public String deleteDress(Long id) {
+		 CCR.deleteById(id);
+		 return "Deleted";
+	}
 }

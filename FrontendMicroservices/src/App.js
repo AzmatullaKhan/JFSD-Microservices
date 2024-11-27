@@ -12,6 +12,7 @@ import { LoginEmployee } from './pages/loginEmployee'
 import { HomeEmployee } from './pages/homeEmployee'
 import {BuyDress} from './pages/buyDress'
 import {CustomerCart} from './pages/customerCart'
+import { MyOrders } from './pages/myOrders'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path='/homeEmployee' element={<HomeEmployee />} />
         <Route path='/buyDress' element={<BuyDress />} />
         <Route path='/customerCart' element={<CustomerCart />}/>
+        <Route path='/myorders' element={<MyOrders />} />
       </Routes>
     </>
   );

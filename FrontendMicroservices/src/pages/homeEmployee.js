@@ -3,6 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 export const HomeEmployee=()=>{
+
+    setTimeout(()=>{
+        localStorage.removeItem('fromCart')
+    },100)
     
     let navigate= useNavigate();
 

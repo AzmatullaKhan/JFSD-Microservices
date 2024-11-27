@@ -2,6 +2,9 @@ import './css/about.css'
 import { Navbar } from './nav'
 
 export const About=()=>{
+    setTimeout(()=>{
+        localStorage.removeItem('fromCart')
+    },100)
     return(
         <div className='about_container_one'>
             <Navbar />

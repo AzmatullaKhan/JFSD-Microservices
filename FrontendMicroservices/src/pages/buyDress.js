@@ -18,9 +18,16 @@ export const BuyDress=()=>{
         currency: 'INR',
     }).format("10")
 
+    setTimeout(()=>{
+        document.getElementById('name').value = localStorage.getItem('username')
+        document.getElementById('mobileNumber').value = localStorage.getItem('mobileNumber')
+    },100)
 
     let main_data=[]
     axios.get('http://localhost:9001/images/all').then(res=>{main_data=res.data}).catch(err=>{console.log(err)})
+
+    let cart_data=[]
+    axios.get('http://localhost:9001/customercart/all').then(res=>{cart_data=res.data}).catch(err=>{console.log(err)})
 
     let size,dressId;
     setTimeout(()=>{
@@ -136,26 +143,54 @@ export const BuyDress=()=>{
         let amount = items_cost+20
 
         const FormData = {name, mobileNumber, pincode, locality, address, city, district, landmark, alternateNumber, amount}
-
-        axios.post('http://localhost:9001/order/createOrder', FormData).then(res=>{localStorage.setItem('OrderId', res.data.razorpayOrderId)}).catch(err=>{console.log(err)})
-
+        
         var options = {
-            "key": "rzp_test_KpueYt3bEtdBmw", // Enter the Key ID generated from the Dashboard
-            "amount": amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+            "key": "rzp_test_KpueYt3bEtdBmw",
+            "amount": amount*100,
             "currency": "INR",
-            "name": "LoomCraft", //your business name
+            "name": "LoomCraft",
             "description": "Buying the Selected Items",
             "image": "https://example.com/your_logo",
-            "order_id": localStorage.getItem('OrderId'), //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "order_id": localStorage.getItem('OrderId'), 
             "handler": function (response){
-                alert(response.razorpay_payment_id);
-                alert(response.razorpay_order_id);
-                alert(response.razorpay_signature)
+                FormData.orderStatus = "success"
+                axios.post('http://localhost:9001/order/createOrder', FormData).then(res=>console.log(res)).catch(err=>{console.log(err)})
+                
+                for(let j = 0;j<dressId.length;j=j+1){
+                    let main_data_from_cartOrdress = []
+                    if(localStorage.getItem('fromCart'))
+                        main_data_from_cartOrdress = cart_data
+                    else
+                        main_data_from_cartOrdress = main_data
+
+                        console.log(main_data_from_cartOrdress)
+                    for(let i=0;i<main_data_from_cartOrdress.length;i=i+1){
+                        let main_data_images = main_data_from_cartOrdress[i].images;
+                        if(dressId[j] === main_data_images[0]){
+            
+                            let dressname = main_data_from_cartOrdress[i].name
+                            let dresscost = Number(main_data_from_cartOrdress[i].cost)
+                            let data1 = main_data_images[0]
+                            let dresspublisher = main_data_from_cartOrdress[i].publisher            
+                            let buyername = FormData.name
+                            let buyernumber = FormData.mobileNumber
+                            let buyersize = 'XL'
+                            let deliveredstatus = 'notDone' 
+
+                            let IndividualForm = {dressname, dresscost, data1, dresspublisher, buyername, buyernumber, buyersize, deliveredstatus}
+
+                            axios.post('http://localhost:9001/employeeOrder/createOrder', IndividualForm).then(res=>console.log(res)).catch(err=>{console.log(err)})
+    
+                            axios.delete('http://localhost:9001/customercart/deleteCart/'+main_data_from_cartOrdress[i].id).then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+                        }
+                    }
+                }
+                navigate('/home')
             },
-            "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
-                "name": name, //your customer's name
+            "prefill": { 
+                "name": name, 
                 "email": "NA@gmail.com", 
-                "contact": mobileNumber  //Provide the customer's phone number for better conversion rates 
+                "contact": mobileNumber
             },
             "notes": {
                 "address": "Razorpay Corporate Office"
@@ -167,17 +202,13 @@ export const BuyDress=()=>{
         };
         var rzp1 = new window.Razorpay(options);
         rzp1.on('payment.failed', function (response){
-                alert(response.error.code);
-                alert(response.error.description);
-                alert(response.error.source);
-                alert(response.error.step);
-                alert(response.error.reason);
-                alert(response.error.metadata.order_id);
-                alert(response.error.metadata.payment_id);
-        });
+            alert('Payment Failed')
 
+        });
+        
         rzp1.open();
         e.preventDefault();
+        
     }
     const handleBackClick=()=>{
         navigate('/home')
@@ -225,8 +256,8 @@ export const BuyDress=()=>{
 
                     <form className='buydress_container_five' onSubmit={handlePlaceOrderClick}>
                             <p style={{fontSize:"22px", weight:"bolder"}}>Address Here</p>
-                            <input type='text' placeholder="Name*" id='name' className='buydress_container_five_input' required/>
-                            <input type='text' placeholder="Mobile Number*" id='mobileNumber' className='buydress_container_five_input' required/>
+                            <input type='text' placeholder="Name*" id='name' className='buydress_container_five_input' readOnly/>
+                            <input type='text' placeholder="Mobile Number*" id='mobileNumber' className='buydress_container_five_input' readOnly/>
                             <input type='text' placeholder="Pincode*" id='pincode' className='buydress_container_five_input' required/>
                             <input type='text' placeholder="Locallity" id='locality' className='buydress_container_five_input'/>
                             <textarea style={{height:"80px", width:"380px",marginBottom:"20px",outline:"none"}} id='address' placeholder="Enter your address***" required></textarea>

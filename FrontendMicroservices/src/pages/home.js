@@ -5,6 +5,10 @@ import { useNavigate } from 'react-router-dom'
 
 export const Home=()=>{
 
+    setTimeout(()=>{
+        localStorage.removeItem('fromCart')
+    },100)
+
     let dressId=[];
 
     let isLoggedIn = Boolean(localStorage.getItem('isLoggedIn'))

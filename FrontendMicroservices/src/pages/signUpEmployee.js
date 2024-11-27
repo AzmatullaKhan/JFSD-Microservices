@@ -4,6 +4,10 @@ import axios from 'axios'
 
 export const SignUpEmployee = () =>{
 
+    setTimeout(()=>{
+        localStorage.removeItem('fromCart')
+    },100)
+
     const navigate = useNavigate()
 
     const validateName=(e)=>{

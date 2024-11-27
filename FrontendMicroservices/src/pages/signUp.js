@@ -5,6 +5,9 @@ import axios from 'axios'
 
 export const SignUp=()=>{
 
+    setTimeout(()=>{
+        localStorage.removeItem('fromCart')
+    },100)
     
     let navigate= useNavigate();
     const handleHomeClick=()=>{

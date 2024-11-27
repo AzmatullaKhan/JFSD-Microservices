@@ -60,7 +60,7 @@ export const Navbar=()=>{
                 
                 {
                     isLoggedIn?
-                    (<button className="nav_container_one_button" onClick={()=>{alert('Need to be set')}}>MyOrders  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>):
+                    (<button className="nav_container_one_button" onClick={()=>{navigate('/myorders')}}>MyOrders  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>):
                     (<button className="nav_container_one_button" onClick={()=>{alert('Need to be set')}}>About  <span className="nav_container_one_button_underline"></span> <div className="nav_container_one_button_div"></div></button>)
                 }
                 {

@@ -3,6 +3,11 @@ import { Navbar } from './nav'
 import axios from "axios"
 
 export const Profile=()=>{
+    
+    setTimeout(()=>{
+        localStorage.removeItem('fromCart')
+    },100)
+
     let username, mobileNumber, dateOfBirth, gender, password;
     username=localStorage.getItem('username')
     mobileNumber=localStorage.getItem('mobileNumber')

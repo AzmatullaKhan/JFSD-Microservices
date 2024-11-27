@@ -4,6 +4,10 @@ import axios from "axios"
 
 export const LoginEmployee = () =>{
 
+    setTimeout(()=>{
+        localStorage.removeItem('fromCart')
+    },100)
+
     let navigate= useNavigate();
 
     const handleBackClick=()=>{

@@ -2,6 +2,10 @@ import './css/help.css'
 import { Navbar } from './nav'
 export const Help=()=>{
 
+    setTimeout(()=>{
+        localStorage.removeItem('fromCart')
+    },100)
+
     function start(str){
         let main_div=document.getElementById('help_container_three_chat_div');
 

@@ -124,6 +124,7 @@ export const CustomerCart=()=>{
         setTimeout(() => {
             localStorage.removeItem('dressId')
             localStorage.setItem('dressId', JSON.stringify(dressId))
+            localStorage.setItem('fromCart', true)
             navigate('/buyDress')
         }, 100);
     }

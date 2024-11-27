@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "emaployee_email")
+@Table(name = "employee_email")
 public class EmployeeEmail {
 	
 	@Override
