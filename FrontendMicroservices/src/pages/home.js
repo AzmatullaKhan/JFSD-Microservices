@@ -78,6 +78,7 @@ export const Home=()=>{
     }
 
     const handleCloseContainerThree = () => {
+        dressId=[]
         document.getElementById('main_container_three').style.animation = 'main_container_three_hidden-animation 1s ease 0s'
         setTimeout(()=>{
             document.getElementById('main_container_three').className='main_container_three_hidden'
@@ -161,31 +162,63 @@ export const Home=()=>{
     const handleAddToCart = async () => {
         const formData = new FormData();
 
-        for(let i=0;i<main_data.length;i=i+1){
-            let main_images_data = main_data[i].images
-            if(dressId[0] === main_images_data[0]){
+        let size;
+        let p1 = document.getElementById('S')        
+        let p2 = document.getElementById('XS')        
+        let p3 = document.getElementById('M')        
+        let p4 = document.getElementById('L')        
+        let p5 = document.getElementById('XL')        
+        let p6 = document.getElementById('XXL')  
+                
+        if(p1.style.color==='rgb(255, 255, 255)')
+            size = (p1.innerHTML)
+        else if(p2.style.color==='rgb(255, 255, 255)')
+            size = (p2.textContent)
+        else if(p3.style.color==='rgb(255, 255, 255)')
+            size = (p3.textContent)
+        else if(p4.style.color==='rgb(255, 255, 255)')
+            size = (p4.textContent)
+        else if(p5.style.color==='rgb(255, 255, 255)')
+            size = (p5.textContent)
+        else if(p6.style.color==='rgb(255, 255, 255)')
+            size = (p6.textContent)
 
-                formData.append('data1', dressId[0]);
-                formData.append('name', main_data[i].name);
-                console.log(typeof(main_data[i].name))
-                formData.append('cost', main_data[i].cost);
-                formData.append('materialused', main_data[i].materialUsed);
-                formData.append('description', main_data[i].description);
-                formData.append('publisher', main_data[i].publisher)
-                formData.append('customerid', localStorage.getItem('username'))
+        if(!size)
+            alert('Select Size to proceed')
+        else{
+            
+            setTimeout(()=>{
+                localStorage.setItem('size', size)
+                localStorage.removeItem('dressId')
+                localStorage.setItem('dressId', JSON.stringify(dressId))
+            },100)
+            
+            for(let i=0;i<main_data.length;i=i+1){
+                let main_images_data = main_data[i].images
+                if(dressId[0] === main_images_data[0]){
+
+                    formData.append('data1', dressId[0]);
+                    formData.append('name', main_data[i].name);
+                    console.log(typeof(main_data[i].name))
+                    formData.append('cost', main_data[i].cost);
+                    formData.append('materialused', main_data[i].materialUsed);
+                    formData.append('description', main_data[i].description);
+                    formData.append('publisher', main_data[i].publisher)
+                    formData.append('customerid', localStorage.getItem('username'))
 
 
+                }
+            }
+            try {
+                const response = await axios.post('http://localhost:9001/customercart/upload', formData);
+                handleCloseContainerThree()
+                alert('Added to Cart')
+                console.log(response)
+            } catch (error) {
+                alert('Error Submitting Order')
             }
         }
     
-        try {
-            const response = await axios.post('http://localhost:9001/customercart/upload', formData);
-            handleCloseContainerThree()
-            alert('Added to Cart')
-            console.log(response)
-        } catch (error) {
-            alert('Error Submitting Order')
-        }
 
         // console.log(dressId)
     };

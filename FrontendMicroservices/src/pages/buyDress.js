@@ -140,13 +140,11 @@ export const BuyDress=()=>{
         let district = document.getElementById("district").value
         let landmark = (document.getElementById("landmark").value === "")?"NOT SET":document.getElementById("locality").value
         let alternateNumber = document.getElementById("alternateNumber").value
-        let amount = items_cost+20
 
-        const FormData = {name, mobileNumber, pincode, locality, address, city, district, landmark, alternateNumber, amount}
         
         var options = {
             "key": "rzp_test_KpueYt3bEtdBmw",
-            "amount": amount*100,
+            "amount": (items_cost+20)*100,
             "currency": "INR",
             "name": "LoomCraft",
             "description": "Buying the Selected Items",
@@ -154,39 +152,51 @@ export const BuyDress=()=>{
             "order_id": localStorage.getItem('OrderId'), 
             "handler": function (response){
                 FormData.orderStatus = "success"
-                axios.post('http://localhost:9001/order/createOrder', FormData).then(res=>console.log(res)).catch(err=>{console.log(err)})
-                
-                for(let j = 0;j<dressId.length;j=j+1){
-                    let main_data_from_cartOrdress = []
-                    if(localStorage.getItem('fromCart'))
-                        main_data_from_cartOrdress = cart_data
-                    else
-                        main_data_from_cartOrdress = main_data
-
-                        console.log(main_data_from_cartOrdress)
-                    for(let i=0;i<main_data_from_cartOrdress.length;i=i+1){
-                        let main_data_images = main_data_from_cartOrdress[i].images;
-                        if(dressId[j] === main_data_images[0]){
-            
-                            let dressname = main_data_from_cartOrdress[i].name
-                            let dresscost = Number(main_data_from_cartOrdress[i].cost)
-                            let data1 = main_data_images[0]
-                            let dresspublisher = main_data_from_cartOrdress[i].publisher            
-                            let buyername = FormData.name
-                            let buyernumber = FormData.mobileNumber
-                            let buyersize = 'XL'
-                            let deliveredstatus = 'notDone' 
-
-                            let IndividualForm = {dressname, dresscost, data1, dresspublisher, buyername, buyernumber, buyersize, deliveredstatus}
-
-                            axios.post('http://localhost:9001/employeeOrder/createOrder', IndividualForm).then(res=>console.log(res)).catch(err=>{console.log(err)})
+                console.log(response)
+                setTimeout(()=>{
+                    for(let j = 0;j<dressId.length;j=j+1){
+                        let main_data_from_cartOrdress = []
+                        if(localStorage.getItem('fromCart'))
+                            main_data_from_cartOrdress = cart_data
+                        else
+                            main_data_from_cartOrdress = main_data
     
-                            axios.delete('http://localhost:9001/customercart/deleteCart/'+main_data_from_cartOrdress[i].id).then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+                        console.log(main_data_from_cartOrdress)
+                        for(let i=0;i<main_data_from_cartOrdress.length;i=i+1){
+                            let main_data_images = main_data_from_cartOrdress[i].images;
+                            if(dressId[j] === main_data_images[0]){
+
+                                let amount = Number(main_data_from_cartOrdress[i].cost)
+
+                                const FormData = {name, mobileNumber, pincode, locality, address, city, district, landmark, alternateNumber, amount}
+                                FormData.orderStatus="paid"
+                                
+                                let dressname = main_data_from_cartOrdress[i].name
+                                let data1 = main_data_images[0]
+                                let dresspublisher = main_data_from_cartOrdress[i].publisher            
+                                let buyername = FormData.name
+                                let buyernumber = FormData.mobileNumber
+                                let buyersize = localStorage.getItem('size')
+                                let deliveredstatus = 'notDone' 
+                                let dresscost = Number(main_data_from_cartOrdress[i].cost)
+
+
+                                let IndividualForm = {dressname, dresscost, data1, dresspublisher, buyername, buyernumber, buyersize, deliveredstatus}
+                                
+
+                                axios.post('http://localhost:9001/order/createOrder', FormData).then(res=>{console.log(res)}).catch(err=>{console.log(err)})
+                                
+                                axios.post('http://localhost:9001/employeeOrder/createOrder', IndividualForm).then(res=>console.log(res)).catch(err=>{console.log(err)})
+        
+                                axios.delete('http://localhost:9001/customercart/deleteCart/'+main_data_from_cartOrdress[i].id).then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+                            }
                         }
                     }
-                }
-                navigate('/home')
-            },
+                    navigate('/home')
+                
+                },500)
+
+                },
             "prefill": { 
                 "name": name, 
                 "email": "NA@gmail.com", 

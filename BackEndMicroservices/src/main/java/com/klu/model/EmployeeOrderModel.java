@@ -28,6 +28,7 @@ public class EmployeeOrderModel {
 	String buyernumber;
 	String buyersize;
 	String deliveredstatus;
+//	String orderedId;
 	
 	public int getId() {
 		return id;
@@ -38,6 +39,12 @@ public class EmployeeOrderModel {
 	public String getDressname() {
 		return dressname;
 	}
+//	public String getOrderedId() {
+//		return orderedId;
+//	}
+//	public void setOrderedId(String orderedId) {
+//		this.orderedId = orderedId;
+//	}
 	public void setDressname(String dressname) {
 		this.dressname = dressname;
 	}
@@ -85,9 +92,9 @@ public class EmployeeOrderModel {
 	}
 	@Override
 	public String toString() {
-		return "CustomerOrderModel [id=" + id + ", dressname=" + dressname + ", dresscost=" + dresscost + ", data1="
+		return "EmployeeOrderModel [id=" + id + ", dressname=" + dressname + ", dresscost=" + dresscost + ", data1="
 				+ data1 + ", dresspublisher=" + dresspublisher + ", buyername=" + buyername + ", buyernumber="
-				+ buyernumber + ", buyersize=" + buyersize + ", deliveredstatus=" + deliveredstatus + "]";
+				+ buyernumber + ", buyersize=" + buyersize + ", deliveredstatus=" + deliveredstatus  + "]";
 	}
 	
 	

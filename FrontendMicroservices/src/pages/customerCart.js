@@ -51,9 +51,10 @@ export const CustomerCart=()=>{
 
                 let p1 = document.createElement('p')
                 p1.textContent = main_name_data
+                p1.style.width="400px"
                 
                 let p2 = document.createElement('p')
-                p2.textContent = "Size: "
+                p2.textContent = "Size: "+localStorage.getItem('size')
 
 
                 let p3 = document.createElement('p')
