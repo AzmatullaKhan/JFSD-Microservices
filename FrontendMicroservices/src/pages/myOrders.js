@@ -80,12 +80,24 @@ export const MyOrders = () =>{
                 p7.style.fontSize="12px"
                 p7.style.color="red"
 
+                let gif_ele = document.createElement('img')
+                gif_ele.style.position="absolute"
+                gif_ele.style.width="120px"
+                gif_ele.style.height="100px"
+                gif_ele.style.margin="0px 0px 0px 700px"
+                if(order_data[i].deliveredstatus==="notDone")
+                    gif_ele.src = require('../images/notDone1.gif')
+                else if(order_data[i].deliveredstatus==="exporting")
+                    gif_ele.src = require('../images/exporting.gif')
+                else if(order_data[i].deliveredstatus==="delivered")
+                    gif_ele.src = require('../images/delivered.png')
 
                 main_div.appendChild(img_ele)
                 main_div.appendChild(mini_div)
                 main_div.appendChild(p5)
                 main_div.appendChild(document.createElement('br'))
                 main_div.appendChild(p7)
+                main_div.appendChild(gif_ele)
 
                 document.getElementById('myorder_container_two_id').appendChild(main_div)
 
@@ -116,16 +128,22 @@ export const MyOrders = () =>{
                 <p style={{fontSize:"22px", weight:"bolder"}}>Support</p>
                 <hr style={{width:"100%", margin:"-20px 0px 0px 0px"}}></hr><br></br>
 
-                <div style={{display:"flex",justifyContent:"space-between",margin:"10px 0px"}}>
-                    <p style={{fontSize:"18px", weight:"bolder"}}>Query1 </p>
+                <div style={{margin:"10px 0px"}}>
+                    <p style={{fontSize:"16px", weight:"bolder", color:"red"}}>1. Cancelling the Order?</p>
+                    <p style={{fontSize:"16px", weight:"bolder"}}>------Mail Providing the OrderId.</p>
+                    <p style={{fontSize:"16px", weight:"bolder"}}>------Email Must Include Reason.</p>
                 </div>
 
-                <div style={{display:"flex",justifyContent:"space-between",margin:"10px 0px"}}>
-                    <p style={{fontSize:"18px", weight:"bolder"}}>Query2</p>
+                <div style={{margin:"10px 0px"}}>
+                    <p style={{fontSize:"18px", weight:"bolder", color:"red"}}>2. If Not Delivered On Time?</p>
+                    <p style={{fontSize:"16px", weight:"bolder"}}>------Mail Providing the OrderId.</p>
+                    <p style={{fontSize:"16px", weight:"bolder"}}>------Keep the subject as "LATE".</p>
                 </div>
 
-                <div style={{display:"flex",justifyContent:"space-between",margin:"10px 0px"}}>
-                    <p style={{fontSize:"18px", weight:"bolder"}}>Query3</p>
+                <div style={{margin:"10px 0px"}}>
+                    <p style={{fontSize:"18px", weight:"bolder", color:"red"}}>3. Change of Size?</p>
+                    <p style={{fontSize:"16px", weight:"bolder"}}>------Publisher will call you.</p>
+                    <p style={{fontSize:"16px", weight:"bolder"}}>------Make sure to confirm it.</p>
                 </div>
 
             </div>

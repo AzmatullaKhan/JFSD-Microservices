@@ -225,6 +225,16 @@ export const HomeEmployee=()=>{
     }
     const handleCloseOrdersClick = () =>{
         document.getElementById('homeEmployee_main_container_three_orders').style.animation='homeEmployee_main_container_three_orders_hidden-animation 1s ease 0s'
+        for(let i=0;i<order_data.length;i=i+1){
+            let val = document.getElementById(order_data[i].id).textContent
+            let status = order_data[i].deliveredstatus
+            if(val === "✅" && status!=='delivered')
+                axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/delivered").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+            else if(val === "❌" && status!=='notDone')
+                axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/notDone").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+            else if(val === "🚚" && status!=='exporting')
+                axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/exporting").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+        }
         setTimeout(()=>{
             document.getElementById('homeEmployee_main_container_three_orders').className='homeEmployee_main_container_three_orders_hidden'
         },900)
@@ -270,6 +280,131 @@ export const HomeEmployee=()=>{
         .then(handleCloseMailClick())
         .catch((err)=>{console.log(err.message)})
     }
+
+
+
+    let username;
+
+    setTimeout(()=>{
+        username= localStorage.getItem('username_employee')
+    },100)
+    let order_data=[]
+    axios.get('http://localhost:9001/employeeOrder/all').then(res=>{order_data=res.data}).catch(err=>{console.log(err)})
+
+    let book_data =[]
+    axios.get('http://localhost:9001/order/all').then((res)=>{book_data=res.data}).catch((err)=>{console.log(err)})
+    
+
+    const renderFunction=()=>{
+        for(let i=0;i<order_data.length;i=i+1){
+            let main_data_images = order_data[i].data1;
+            if(order_data[i].dresspublisher === username){
+
+                let main_div = document.createElement('div')
+                main_div.className='orders_container_auto'
+                
+
+                let img_ele = document.createElement('img')
+                img_ele.style.width="100px"
+                img_ele.style.height="100px"
+                img_ele.style.margin="0px 2px"
+                img_ele.style.borderRadius="12px"
+                img_ele.alt = 'image_'+i;
+                img_ele.src = main_data_images
+
+                let p1 = document.createElement('p')
+                p1.textContent = i+1
+                p1.style.width = '30px'
+                p1.style.margin="0px 2px"
+                p1.style.textAlign='center'
+
+                let p2 = document.createElement('p')
+                p2.style.width="130px"
+                p2.style.margin="0px 2px"
+                p2.textContent = order_data[i].buyername
+                p2.style.textAlign='center'
+
+                let p3 = document.createElement('p')
+                p3.style.width ="130px"
+                p3.style.textAlign='center'
+                p3.style.margin="0px 2px"
+                p3.textContent = order_data[i].buyernumber
+
+                let p4 = document.createElement('p')
+                p4.style.width = "40px"
+                p4.textContent = order_data[i].buyersize
+                p4.style.textAlign='center'
+                p4.style.margin="0px 2px"
+
+                let p5 = document.createElement('p')
+                p5.style.width = "250px"
+                p5.style.textAlign='center'
+                p5.textContent =order_data[i].dressname
+                p5.style.margin="0px 2px"
+
+                let p6 = document.createElement('p')
+                p6.style.textAlign='center'
+                p6.style.width = "300px"
+                p6.style.margin="0px 2px"
+                p6.textContent = book_data[i].pincode +","+book_data[i].district+","+
+                          book_data[i].city+","+book_data[i].address   
+
+
+                let p7 = document.createElement('p')
+                p7.style.textAlign='center'
+                p7.style.width = "80px"
+                p7.textContent='1'
+
+                let p9 = document.createElement('p')
+                p9.textContent = "1"
+
+                let p8 = document.createElement('p')
+                p8.style.textAlign='center'
+                p8.style.width = "80px"
+                p8.id = order_data[i].id
+                if(order_data[i].deliveredstatus==="notDone")
+                    p8.textContent = "❌"
+                else if(order_data[i].deliveredstatus==="exporting")
+                    p8.textContent="🚚"
+                else if(order_data[i].deliveredstatus==="delivered")
+                    p8.textContent="✅"
+                p8.addEventListener('click',(e)=>{
+                    let count = Number(p9.textContent)
+                    if(count === 0)
+                        document.getElementById(e.target.id).textContent = "❌"
+                    else if(count === 1)
+                        document.getElementById(e.target.id).textContent = "🚚"
+                    else if (count === 2)
+                        document.getElementById(e.target.id).textContent = "✅"
+                    
+                    count=(count+1)%3;
+                    p9.textContent=count
+                })
+
+                
+
+                main_div.appendChild(p1)
+                main_div.appendChild(p2)
+                main_div.appendChild(p3)
+                main_div.appendChild(p4)
+                main_div.appendChild(p5)
+                main_div.appendChild(img_ele)
+                main_div.appendChild(p6)
+                main_div.appendChild(p7)
+                main_div.appendChild(p8)
+
+                document.getElementById('orders_container_one').appendChild(main_div)
+
+                
+            }
+        }
+
+    }
+    setTimeout(()=>{
+        renderFunction()
+    },2000)
+
+
     return(
         <div className="homeEmployee_main_container_one">
             <div className="homeEmployee_main_container_two">
@@ -395,7 +530,20 @@ export const HomeEmployee=()=>{
                 <button className='homeEmployee_main_container_three_mail_button'>Send</button>
             </form>
             <div className='homeEmployee_main_container_three_orders_hidden' id='homeEmployee_main_container_three_orders'>
-                <span style={{position:"absolute",margin:"0px 0px 0px 450px", color:"red",fontSize:"28px",cursor:"pointer"}} onClick={handleCloseOrdersClick}>X</span>
+                <span style={{position:"absolute",margin:"0px 0px 0px 1150px", color:"red",fontSize:"28px",cursor:"pointer"}} onClick={handleCloseOrdersClick}>X</span>
+                <div className='orders_container_one' id = 'orders_container_one'>
+                    <div className='orders_container_two'>
+                        <p style={{width:"30px",margin:"0px 2px"}}>S.no</p>
+                        <p style={{width:"130px",textAlign:"center", margin:"0px 2px"}}>Name</p>
+                        <p style={{width:"130px",textAlign:"center", margin:"0px 2px"}}>Mob Num</p>
+                        <p style={{width:"40px",textAlign:"center", margin:"0px 2px"}}>Size</p>
+                        <p style={{width:"250px",textAlign:"center", margin:"0px 2px"}}>Dress Name</p>
+                        <p style={{width:"100px",textAlign:"center", margin:"0px 2px"}}>Dress Image</p>
+                        <p style={{width:"300px",textAlign:"center", margin:"0px 2px"}}>Address</p>
+                        <p style={{width:"80px",textAlign:"center", margin:"0px 2px"}}>Qunatity</p>
+                        <p style={{width:"100px",textAlign:"center", margin:"0px 2px"}}>Status</p>
+                    </div>
+                </div>
             </div>
             <div className='homeEmployee_main_container_three_report_hidden' id='homeEmployee_main_container_three_report'>
                 <span style={{position:"absolute",margin:"0px 0px 0px 450px", color:"red",fontSize:"28px",cursor:"pointer"}} onClick={handleCloseReportClick}>X</span>

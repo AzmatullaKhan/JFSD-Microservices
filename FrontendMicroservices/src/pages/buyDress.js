@@ -188,7 +188,8 @@ export const BuyDress=()=>{
                                 
                                 axios.post('http://localhost:9001/employeeOrder/createOrder', IndividualForm).then(res=>console.log(res)).catch(err=>{console.log(err)})
         
-                                axios.delete('http://localhost:9001/customercart/deleteCart/'+main_data_from_cartOrdress[i].id).then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+                                if(localStorage.getItem('fromCart'))
+                                    axios.delete('http://localhost:9001/customercart/deleteCart/'+main_data_from_cartOrdress[i].id).then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
                             }
                         }
                     }

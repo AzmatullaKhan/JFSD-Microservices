@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,5 +37,18 @@ public class EmployeeOrderController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		
 		return new ResponseEntity<List<EmployeeOrderModel>>(l, HttpStatus.OK);
+	}
+	
+	@PostMapping("/updateStatus/{id}/{status}")
+	public String updateStatus(@PathVariable int id, @PathVariable String status) {
+		List<EmployeeOrderModel> l = EOS.getAll();
+		for(EmployeeOrderModel EM : l) {
+			if(EM.getId() == id) {
+				EM.setDeliveredstatus(status);
+				EOS.saveOrder(EM);
+				return "Success";
+			}
+		}
+		return "Failed";
 	}
 }

@@ -20,7 +20,7 @@
     min-height: 770px;
     min-width: 900px;
     max-width:980px;
-    margin:-300px 0px 10px 450px;
+    margin:-500px 0px 10px 450px;
     z-index: 2;
     position: relative;
     overflow-y: scroll;
@@ -59,7 +59,7 @@
 }
 
 .myorder_container_four{
-    height:300px;
+    height:450px;
     border-radius: 22px;
     width:400px;
     margin: 0px 20px;

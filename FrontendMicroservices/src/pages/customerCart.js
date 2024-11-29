@@ -31,7 +31,7 @@ export const CustomerCart=()=>{
     const renderFunction=()=>{
         for(let i=0;i<main_data.length;i=i+1){
             let main_data_images = main_data[i].images;
-            console.log(main_data[i])
+            // console.log(main_data[i])
             if(main_data[i].customerId === username){
 
                 let main_name_data = main_data[i].name
@@ -81,14 +81,27 @@ export const CustomerCart=()=>{
                 mini_div.appendChild(p6)
                 
                 let p5 = document.createElement('p')
-                p5.textContent = 'Delivered By Seven Days from now.'
+                p5.textContent = 'Delivered By Seven Days from now if ordered today.'
                 p5.style.alignSelf='start'
                 p5.style.paddingTop="10px"
                 p5.style.fontSize="12px"
 
+                let button = document.createElement('button')
+                button.innerHTML='Remove From Watchlist'
+                button.style.position="absolute"
+                button.style.marginLeft="500px"
+                button.style.marginTop="200px"
+                button.className='customercart_container_one_button'
+                button.id=main_data[i].id
+                button.addEventListener('click', (e)=>{
+                    axios.delete('http://localhost:9001/customercart/deleteCart/'+e.target.id).then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+                    window.location.reload()
+                })
+
                 main_div.appendChild(img_ele)
                 main_div.appendChild(mini_div)
                 main_div.appendChild(p5)
+                main_div.appendChild(button)
                 
                 items_count=items_count+1;
                 items_cost=items_cost+main_cost_data
