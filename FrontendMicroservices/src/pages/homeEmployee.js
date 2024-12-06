@@ -1,8 +1,29 @@
 import './css/homeEmployee.css'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
-
+import { PieChart } from '@mui/x-charts/PieChart';
 export const HomeEmployee=()=>{
+
+    let piechart_data1 = []
+    let piechart_data2 = []
+
+    // const data1 = [
+    //     { label: 'Group A', value: 400 },
+    //     { label: 'Group B', value: 300 },
+    //     { label: 'Group C', value: 300 },
+    //     { label: 'Group D', value: 200 },
+    //     { label: 'Group E', value: 278 },
+    //     { label: 'Group F', value: 189 },
+    //   ];
+      
+    //   const data2 = [
+    //     { label: 'Group A', value: 2400 },
+    //     { label: 'Group B', value: 4567 },
+    //     { label: 'Group C', value: 1398 },
+    //     { label: 'Group D', value: 9800 },
+    //     { label: 'Group E', value: 3908 },
+    //     { label: 'Group F', value: 4800 },
+    //   ];
 
     setTimeout(()=>{
         localStorage.removeItem('fromCart')
@@ -21,50 +42,52 @@ export const HomeEmployee=()=>{
     setTimeout(()=>{
         let main_div = document.getElementById('homeEmployee_main_container_four')
         console.log(main_data)
-        for(let i=0;i<main_data.length;i=i+1){
-            if(main_data[i].publisher === document.getElementById('employee_username').textContent){
-
-                let div = document.createElement('div')
-                div.className = 'homeEmployee_main_container_four_one'
-
-                let p1 = document.createElement('p')
-                p1.style.maxWidth = "40px"
-                p1.style.minWidth = "40px"
-                p1.textContent = (i+1)
-
-                let p2 = document.createElement('p')
-                p2.style.maxWidth = "250px"
-                p2.style.minWidth = "250px"
-                p2.textContent = main_data[i].name
-
-                let p3 = document.createElement('p')
-                p3.style.minWidth = "100px"
-                p3.style.maxWidth = "100px"
-                p3.textContent = main_data[i].cost
-
-                let p4 = document.createElement('p')
-                p4.style.minWidth = "200px"
-                p4.style.maxWidth = "200px"
-                p4.textContent = main_data[i].materialUsed
-
-                let p5 = document.createElement('p')
-                p5.style.minWidth = "600px"
-                p5.style.maxWidth = "600px"
-                p5.textContent = main_data[i].description
-
-                let p6 = document.createElement('p6')
-                p6.style.minWidth = "50px"
-                p6.style.maxWidth = "50px"
-                p6.textContent = main_data[i].id
-
-                div.appendChild(p1)
-                div.appendChild(p2)
-                div.appendChild(p3)
-                div.appendChild(p4)
-                div.appendChild(p5)
-                div.appendChild(p6)
-
-                main_div.appendChild(div)
+        if(main_div.childNodes.length===1){
+            for(let i=0;i<main_data.length;i=i+1){
+                if(main_data[i].publisher === document.getElementById('employee_username').textContent){
+    
+                    let div = document.createElement('div')
+                    div.className = 'homeEmployee_main_container_four_one'
+    
+                    let p1 = document.createElement('p')
+                    p1.style.maxWidth = "40px"
+                    p1.style.minWidth = "40px"
+                    p1.textContent = (i+1)
+    
+                    let p2 = document.createElement('p')
+                    p2.style.maxWidth = "250px"
+                    p2.style.minWidth = "250px"
+                    p2.textContent = main_data[i].name
+    
+                    let p3 = document.createElement('p')
+                    p3.style.minWidth = "100px"
+                    p3.style.maxWidth = "100px"
+                    p3.textContent = main_data[i].cost
+    
+                    let p4 = document.createElement('p')
+                    p4.style.minWidth = "200px"
+                    p4.style.maxWidth = "200px"
+                    p4.textContent = main_data[i].materialUsed
+    
+                    let p5 = document.createElement('p')
+                    p5.style.minWidth = "600px"
+                    p5.style.maxWidth = "600px"
+                    p5.textContent = main_data[i].description
+    
+                    let p6 = document.createElement('p6')
+                    p6.style.minWidth = "50px"
+                    p6.style.maxWidth = "50px"
+                    p6.textContent = main_data[i].id
+    
+                    div.appendChild(p1)
+                    div.appendChild(p2)
+                    div.appendChild(p3)
+                    div.appendChild(p4)
+                    div.appendChild(p5)
+                    div.appendChild(p6)
+    
+                    main_div.appendChild(div)
+                }
             }
         }
     },2000)
@@ -220,26 +243,35 @@ export const HomeEmployee=()=>{
         document.getElementById('homeEmployee_main_container_three_mail_containerOne_desc').value=""
     }
     const handleOrderClick=()=>{
+        // console.log(document.getElementById('orders_container_one').childNodes.length)
+        if(document.getElementById('orders_container_one').childNodes.length===1){
+            renderFunction()
+        }
         document.getElementById('homeEmployee_main_container_three_orders').className='homeEmployee_main_container_three_orders_visible'
         document.getElementById('homeEmployee_main_container_three_orders').style.animation='homeEmployee_main_container_three_orders_visible-animation 1s ease 0s'
     }
     const handleCloseOrdersClick = () =>{
         document.getElementById('homeEmployee_main_container_three_orders').style.animation='homeEmployee_main_container_three_orders_hidden-animation 1s ease 0s'
-        for(let i=0;i<order_data.length;i=i+1){
-            let val = document.getElementById(order_data[i].id).textContent
-            let status = order_data[i].deliveredstatus
-            if(val === "✅" && status!=='delivered')
-                axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/delivered").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
-            else if(val === "❌" && status!=='notDone')
-                axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/notDone").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
-            else if(val === "🚚" && status!=='exporting')
-                axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/exporting").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+        if(document.getElementById('orders_container_one').childNodes.length!==1){
+            for(let i=0;i<order_data.length;i=i+1){
+                let val = document.getElementById(order_data[i].id).textContent
+                let status = order_data[i].deliveredstatus
+                if(val === "✅" && status!=='delivered')
+                    axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/delivered").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+                else if(val === "❌" && status!=='notDone')
+                    axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/notDone").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+                else if(val === "🚚" && status!=='exporting')
+                    axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/exporting").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+            }
         }
         setTimeout(()=>{
             document.getElementById('homeEmployee_main_container_three_orders').className='homeEmployee_main_container_three_orders_hidden'
         },900)
     }
     const handleReportClick=()=>{
+        if(document.getElementById('homeEmployee_main_container_three_report').childNodes.length ===2){
+            renderReportOrders()
+        }
         document.getElementById('homeEmployee_main_container_three_report').className='homeEmployee_main_container_three_report_visible'
         document.getElementById('homeEmployee_main_container_three_report').style.animation='homeEmployee_main_container_three_report_visible-animation 1s ease 0s'
     }
@@ -296,6 +328,10 @@ export const HomeEmployee=()=>{
     
 
     const renderFunction=()=>{
+
+        console.log(book_data)
+        console.log(order_data)
+
         for(let i=0;i<order_data.length;i=i+1){
             let main_data_images = order_data[i].data1;
             if(order_data[i].dresspublisher === username){
@@ -400,10 +436,114 @@ export const HomeEmployee=()=>{
         }
 
     }
-    setTimeout(()=>{
-        renderFunction()
-    },2000)
 
+
+    const renderReportOrders = () =>{
+
+        const mapUndone = new Map()
+        const mapDone = new Map()
+        let count = "1"
+
+        for(let i=0;i<order_data.length;i=i+1){
+            if(order_data[i].dresspublisher === username){
+                if(mapUndone.get(order_data[i].dressname)){
+                    mapUndone.set(order_data[i].dressname, mapUndone.get(order_data[i].dressname)+"1")
+                    if(order_data[i].deliveredstatus === "delivered")
+                        mapDone.set(order_data[i].dressname, mapDone.get(order_data[i].dressname)+"1")
+                }
+                else{
+                    mapUndone.set(order_data[i].dressname, count)
+                    if(order_data[i].deliveredstatus === "delivered")
+                        mapDone.set(order_data[i].dressname, "1")
+                    else
+                        mapDone.set(order_data[i].dressname, "0")
+                }
+            }
+        }
+            
+        let index = Number(1)
+        mapUndone.forEach(function(val, key) {
+            let main_div = document.createElement('div')
+            main_div.className = 'report_container_auto'
+
+            let p1 = document.createElement('p')
+            p1.textContent = index
+            p1.style.width = "50px"
+            p1.style.textAlign = "center"
+
+            let p2 = document.createElement('p')
+            p2.style.textAlign = "center"
+            p2.style.width = "250px"
+            p2.textContent = key
+
+            let p3 = document.createElement('p')
+            p3.style.textAlign = "center"
+            p3.style.width = "100px"
+            p3.textContent = val
+
+            let p4 = document.createElement('p')
+            p4.style.textAlign = "center"
+            p4.style.width = "100px"
+            p4.textContent = (mapDone.get(key)==="0")?"0":mapDone.get(key).length
+
+
+            main_div.appendChild(p1)
+            main_div.appendChild(p2)
+            main_div.appendChild(p3)
+            main_div.appendChild(p4)
+
+            document.getElementById('homeEmployee_main_container_three_report').appendChild(main_div)
+
+            index = index+1
+
+        });
+
+    }
+
+    const renderPiechartData = () =>{
+
+        const mapUndone = new Map()
+        const mapDone = new Map()
+        const mapCost = new Map()
+        let count = "1"
+
+        localStorage.removeItem('piechart1')
+        localStorage.removeItem('piechart2')
+
+        for(let i=0;i<order_data.length;i=i+1){
+            if(order_data[i].dresspublisher === username){
+                if(mapUndone.get(order_data[i].dressname)){
+                    mapUndone.set(order_data[i].dressname, mapUndone.get(order_data[i].dressname)+"1")
+                    if(order_data[i].deliveredstatus === "delivered")
+                        mapDone.set(order_data[i].dressname, mapDone.get(order_data[i].dressname)+"1")
+                }
+                else{
+                    mapUndone.set(order_data[i].dressname, count)
+                    mapCost.set(order_data[i].dressname, order_data[i].dresscost)
+                    if(order_data[i].deliveredstatus === "delivered")
+                        mapDone.set(order_data[i].dressname, "1")
+                    else
+                        mapDone.set(order_data[i].dressname, "0")
+                }
+            }
+
+        }
+        // console.log(mapUndone)
+        // console.log(mapDone)
+        // console.log(mapCost)
+
+        mapUndone.forEach(function(val, key) {
+            piechart_data1.push({label:key, value:val}) 
+            piechart_data2.push({label:key, value:Number(mapCost.get(key))*Number(val)})
+        });
+
+        localStorage.setItem('piechart1', JSON.stringify(piechart_data1))
+        localStorage.setItem('piechart2', JSON.stringify(piechart_data2))
+        }
+
+        setTimeout(()=>{
+            renderPiechartData()
+        },2000)
 
     return(
         <div className="homeEmployee_main_container_one">
@@ -547,11 +687,42 @@ export const HomeEmployee=()=>{
             </div>
             <div className='homeEmployee_main_container_three_report_hidden' id='homeEmployee_main_container_three_report'>
                 <span style={{position:"absolute",margin:"0px 0px 0px 450px", color:"red",fontSize:"28px",cursor:"pointer"}} onClick={handleCloseReportClick}>X</span>
+                <div id='report_container_one' className='report_container_one'>
+                    <p style={{width:"50px",textAlign:"center"}}>S.No</p>
+                    <p style={{width:"250px",textAlign:"center"}}>Dress Name</p>
+                    <p style={{width:"100px",textAlign:"center"}}>Ordered</p>
+                    <p style={{width:"100px",textAlign:"center"}}>Completed</p>
+                </div>
             </div>
             <div className='homeEmployee_main_container_three_revenue_hidden' id='homeEmployee_main_container_three_revenue'>
-                <span style={{position:"absolute",margin:"0px 0px 0px 450px", color:"red",fontSize:"28px",cursor:"pointer"}} onClick={handleCloseRevenueClick}>X</span>
+                <span style={{position:"absolute",margin:"0px 0px 0px 450px", color:"red",fontSize:"28px",cursor:"pointer", zIndex:"9"}} onClick={handleCloseRevenueClick}>X</span>
+                <p style={{marginTop:"40px", textAlign:"center", fontWeight:"bolder", fontSize:"22px", color:"#fff", textDecoration:"underline"}}>Charts Regarding Your Revenue</p>
+                <p style={{margin:"120px 0px 0px -250px", textAlign:"center", fontWeight:"bolder", fontSize:"16px", color:"#000", position:"absolute", textDecoration:"underline"}}>Orders Obtained:</p>
+                <p style={{margin:"380px 0px 0px -250px", textAlign:"center", fontWeight:"bolder", fontSize:"16px", color:"#000", position:"absolute", textDecoration:"underline"}}>Money Obtained:</p>
+                <PieChart
+                    series={[
+                        {
+                          outerRadius: 100,
+                          data: JSON.parse(localStorage.getItem('piechart1')),
+                        //   data: data1,
+                          cx: 250,
+                          cy: 125
+                        },
+                        {
+                          data: JSON.parse(localStorage.getItem('piechart2')),
+                        //   data: data2,
+                          cx: 250,
+                          cy: 380,
+                          innerRadius: 50,
+                          outerRadius: 100,
+                        },
+                      ]}
+                      height={500}
+                      slotProps={{
+                        legend: { hidden: true },
+                      }}
+                    />
             </div>
         </div>
     )
 }
-
