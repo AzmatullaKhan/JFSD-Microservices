@@ -100,6 +100,8 @@ export const HomeEmployee=()=>{
         localStorage.removeItem('gender_employee')
         localStorage.setItem('isLoggedIn_employee', false)
         localStorage.removeItem('error_employee')
+        localStorage.removeItem('piechart1')
+        localStorage.removeItem('piechart2')
         navigate('/loginEmployee')
     }
     const handlePostOrderClick=()=>{
