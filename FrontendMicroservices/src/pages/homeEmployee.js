@@ -90,7 +90,7 @@ export const HomeEmployee=()=>{
                 }
             }
         }
-    },2000)
+    },3000)
 
     const handleLogoutClick=()=>{
         localStorage.removeItem('username_employee')
@@ -100,8 +100,8 @@ export const HomeEmployee=()=>{
         localStorage.removeItem('gender_employee')
         localStorage.setItem('isLoggedIn_employee', false)
         localStorage.removeItem('error_employee')
-        localStorage.removeItem('piechart1')
-        localStorage.removeItem('piechart2')
+        // localStorage.removeItem('piechart1')
+        // localStorage.removeItem('piechart2')
         navigate('/loginEmployee')
     }
     const handlePostOrderClick=()=>{
@@ -264,6 +264,9 @@ export const HomeEmployee=()=>{
                     axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/notDone").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
                 else if(val === "🚚" && status!=='exporting')
                     axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/exporting").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+                else if(val === "🗑️" && status!=='deleted')
+                    axios.post('http://localhost:9001/employeeOrder/updateStatus/'+order_data[i].id+"/deleted").then((res)=>{console.log(res)}).catch((err)=>{console.log(err)})
+
             }
         }
         setTimeout(()=>{
@@ -391,7 +394,7 @@ export const HomeEmployee=()=>{
                 let p7 = document.createElement('p')
                 p7.style.textAlign='center'
                 p7.style.width = "80px"
-                p7.textContent='1'
+                p7.textContent=order_data[i].quantity
 
                 let p9 = document.createElement('p')
                 p9.textContent = "1"
@@ -406,18 +409,23 @@ export const HomeEmployee=()=>{
                     p8.textContent="🚚"
                 else if(order_data[i].deliveredstatus==="delivered")
                     p8.textContent="✅"
-                p8.addEventListener('click',(e)=>{
-                    let count = Number(p9.textContent)
-                    if(count === 0)
-                        document.getElementById(e.target.id).textContent = "❌"
-                    else if(count === 1)
-                        document.getElementById(e.target.id).textContent = "🚚"
-                    else if (count === 2)
-                        document.getElementById(e.target.id).textContent = "✅"
-                    
-                    count=(count+1)%3;
-                    p9.textContent=count
-                })
+                else if(order_data[i].deliveredstatus==="deleted")
+                    p8.textContent="🗑️"
+                if(p8.textContent!=="🗑️"){
+                    p8.addEventListener('click',(e)=>{
+                        let count = Number(p9.textContent)
+                        if(count === 0)
+                            document.getElementById(e.target.id).textContent = "❌"
+                        else if(count === 1)
+                            document.getElementById(e.target.id).textContent = "🚚"
+                        else if (count === 2)
+                            document.getElementById(e.target.id).textContent = "✅"
+                        else if(count === 3)
+                            document.getElementById(e.target.id).textContent = "🗑️"
+                        count=(count+1)%4;
+                        p9.textContent=count
+                    })
+                }
 
                 
 

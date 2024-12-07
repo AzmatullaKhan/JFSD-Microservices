@@ -34,19 +34,20 @@ export const BuyDress=()=>{
         size = localStorage.getItem('size')
         dressId = JSON.parse(localStorage.getItem('dressId'))
     }, 100)
-    setTimeout(()=>{
-        renderFunction()
-        console.log(main_data)
-    },2000)
 
     const renderFunction=()=>{
+        let main_data_from_cartOrdress =[]
+        if(localStorage.getItem('fromCart'))
+            main_data_from_cartOrdress = cart_data
+        else
+            main_data_from_cartOrdress = main_data
         for(let j = 0;j<dressId.length;j=j+1){
-            for(let i=0;i<main_data.length;i=i+1){
-                let main_data_images = main_data[i].images;
+            for(let i=0;i<main_data_from_cartOrdress.length;i=i+1){
+                let main_data_images = main_data_from_cartOrdress[i].images;
                 if(dressId[j] === main_data_images[0]){
     
-                    let main_name_data = main_data[i].name
-                    let main_cost_data = Number(main_data[i].cost)
+                    let main_name_data = main_data_from_cartOrdress[i].name
+                    let main_cost_data = Number(main_data_from_cartOrdress[i].cost)
     
                     let main_div = document.createElement('div')
                     main_div.className='buyDress_dress_holder'
@@ -70,7 +71,7 @@ export const BuyDress=()=>{
     
     
                     let p3 = document.createElement('p')
-                    p3.textContent = "Seller: "+main_data[i].publisher
+                    p3.textContent = "Seller: "+main_data_from_cartOrdress[i].publisher
                     p3.style.fontWeight='100'
                     p3.style.opacity='0.7'
     
@@ -82,7 +83,7 @@ export const BuyDress=()=>{
                     p4.textContent =formattedValue
     
                     let p6 = document.createElement('p')
-                    p6.textContent ="Material Used: "+main_data[i].materialUsed
+                    p6.textContent ="Material Used: "+main_data_from_cartOrdress[i].materialUsed
                     p6.style.fontSize='14px'
                     p6.style.opacity='0.7'
     
@@ -97,13 +98,35 @@ export const BuyDress=()=>{
                     p5.style.alignSelf='start'
                     p5.style.paddingTop="10px"
                     p5.style.fontSize="12px"
+
+                    let numberInput = document.createElement('input')
+                    numberInput.className = 'inputNumberField'
+                    numberInput.readOnly=true
+                    if(localStorage.getItem('fromCart'))
+                        numberInput.value = main_data_from_cartOrdress[i].quantity
+                    else
+                        numberInput.value = localStorage.getItem('quantity')
+
+                    let label = document.createElement('label')
+                    label.textContent = "no.of items"
+                    // numberInput.style.position="absolute"
     
                     main_div.appendChild(img_ele)
                     main_div.appendChild(mini_div)
                     main_div.appendChild(p5)
+                    main_div.appendChild(label)
+                    main_div.appendChild(numberInput)
                     
-                    items_count=items_count+1;
-                    items_cost=items_cost+main_cost_data
+                    if(localStorage.getItem('fromCart')){
+                        items_count=items_count+main_data_from_cartOrdress[i].quantity;
+                        items_cost=items_cost+(main_cost_data*main_data_from_cartOrdress[i].quantity)
+                    }
+                    else
+                    {
+                        items_count=items_count+Number(localStorage.getItem('quantity'));
+                        items_cost=items_cost+(main_cost_data*Number(localStorage.getItem('quantity')))
+                    
+                    }
     
                     document.getElementById('buydress_container_three_id').appendChild(main_div)
     
@@ -112,12 +135,90 @@ export const BuyDress=()=>{
             }
         }
     }
+    // const renderFunction=()=>{
+    //     for(let j = 0;j<dressId.length;j=j+1){
+    //         for(let i=0;i<main_data.length;i=i+1){
+    //             let main_data_images = main_data[i].images;
+    //             if(dressId[j] === main_data_images[0]){
+    
+    //                 let main_name_data = main_data[i].name
+    //                 let main_cost_data = Number(main_data[i].cost)
+    
+    //                 let main_div = document.createElement('div')
+    //                 main_div.className='buyDress_dress_holder'
+                    
+    
+    //                 let img_ele = document.createElement('img')
+    //                 img_ele.className = 'buyDress_dress_holder_image'
+    //                 img_ele.alt = 'image_'+i;
+    //                 img_ele.src = main_data_images[0]
+    
+    //                 let mini_div = document.createElement('div')
+    //                 mini_div.className='buydress_dress_holder_desc'
+    
+    //                 let p1 = document.createElement('p')
+    //                 p1.textContent = main_name_data
+                    
+    //                 let p2 = document.createElement('p')
+    //                 p2.textContent = "Size: "+size
+    //                 p2.style.fontSize="12px"
+    //                 p2.style.marginTop="-20px"
+    
+    
+    //                 let p3 = document.createElement('p')
+    //                 p3.textContent = "Seller: "+main_data[i].publisher
+    //                 p3.style.fontWeight='100'
+    //                 p3.style.opacity='0.7'
+    
+    //                 const formattedValue = new Intl.NumberFormat('en-IN', {
+    //                     style: 'currency',
+    //                     currency: 'INR',
+    //                 }).format(main_cost_data)
+    //                 let p4 = document.createElement('p')
+    //                 p4.textContent =formattedValue
+    
+    //                 let p6 = document.createElement('p')
+    //                 p6.textContent ="Material Used: "+main_data[i].materialUsed
+    //                 p6.style.fontSize='14px'
+    //                 p6.style.opacity='0.7'
+    
+    //                 mini_div.appendChild(p1)
+    //                 mini_div.appendChild(p2)
+    //                 mini_div.appendChild(p3)
+    //                 mini_div.appendChild(p4)
+    //                 mini_div.appendChild(p6)
+                    
+    //                 let p5 = document.createElement('p')
+    //                 p5.textContent = 'Delivered By Seven Days from now.'
+    //                 p5.style.alignSelf='start'
+    //                 p5.style.paddingTop="10px"
+    //                 p5.style.fontSize="12px"
+    
+    //                 main_div.appendChild(img_ele)
+    //                 main_div.appendChild(mini_div)
+    //                 main_div.appendChild(p5)
+                    
+    //                 items_count=items_count+1;
+    //                 items_cost=items_cost+main_cost_data
+    
+    //                 document.getElementById('buydress_container_three_id').appendChild(main_div)
+    
+                    
+    //             }
+    //         }
+    //     }
+    // }
+
+    setTimeout(()=>{
+        renderFunction()
+        console.log(main_data)
+    },2000)
     const calculate = () =>{
-        document.getElementById('buydress_container_four_itemsCount').textContent = "Items:     "+items_count
-        document.getElementById('buydress_container_four_itemsCost').textContent= new Intl.NumberFormat('en-IN', {
-            style: 'currency',
-            currency: 'INR',
-        }).format(items_cost)
+        // document.getElementById('buydress_container_four_itemsCount').textContent = "Items:     "+items_count
+        // document.getElementById('buydress_container_four_itemsCost').textContent= new Intl.NumberFormat('en-IN', {
+        //     style: 'currency',
+        //     currency: 'INR',
+        // }).format(items_cost)
         document.getElementById('buydress_container_four_deliveryCharge').textContent = delivery_charge
         document.getElementById('buydress_container_four_platformFee').textContent = platform_fee
         document.getElementById('buydress_container_four_totalAmount').textContent = new Intl.NumberFormat('en-IN', {
@@ -140,7 +241,7 @@ export const BuyDress=()=>{
         let district = document.getElementById("district").value
         let landmark = (document.getElementById("landmark").value === "")?"NOT SET":document.getElementById("locality").value
         let alternateNumber = document.getElementById("alternateNumber").value
-
+        
         
         var options = {
             "key": "rzp_test_KpueYt3bEtdBmw",
@@ -167,8 +268,13 @@ export const BuyDress=()=>{
                             if(dressId[j] === main_data_images[0]){
 
                                 let amount = Number(main_data_from_cartOrdress[i].cost)
+                                let quantity="0"
+                                if(localStorage.getItem('fromCart'))
+                                    quantity = main_data_from_cartOrdress[i].quantity
+                                else
+                                    quantity = localStorage.getItem('quantity')
 
-                                const FormData = {name, mobileNumber, pincode, locality, address, city, district, landmark, alternateNumber, amount}
+                                const FormData = {name, mobileNumber, pincode, locality, address, city, district, landmark, alternateNumber, amount, quantity}
                                 FormData.orderStatus="paid"
                                 
                                 let dressname = main_data_from_cartOrdress[i].name
@@ -181,7 +287,7 @@ export const BuyDress=()=>{
                                 let dresscost = Number(main_data_from_cartOrdress[i].cost)
 
 
-                                let IndividualForm = {dressname, dresscost, data1, dresspublisher, buyername, buyernumber, buyersize, deliveredstatus}
+                                let IndividualForm = {dressname, dresscost, data1, dresspublisher, buyername, buyernumber, buyersize, deliveredstatus, quantity}
                                 
 
                                 axios.post('http://localhost:9001/order/createOrder', FormData).then(res=>{console.log(res)}).catch(err=>{console.log(err)})
@@ -244,10 +350,10 @@ export const BuyDress=()=>{
                     <p style={{fontSize:"22px", weight:"bolder"}}>Order Details</p>
                     <hr style={{width:"100%", margin:"-20px 0px 0px 0px"}}></hr><br></br>
 
-                    <div style={{display:"flex",justifyContent:"space-between",margin:"10px 0px"}}>
+                    {/* <div style={{display:"flex",justifyContent:"space-between",margin:"10px 0px"}}>
                         <p style={{fontSize:"18px", weight:"bolder"}}>Price (<span id='buydress_container_four_itemsCount'></span>):</p>
                         <p style={{fontSize:"18px", weight:"bolder"}} id='buydress_container_four_itemsCost'>Amount</p>
-                    </div>
+                    </div> */}
 
                     <div style={{display:"flex",justifyContent:"space-between",margin:"10px 0px"}}>
                         <p style={{fontSize:"18px", weight:"bolder"}}>Delivery Charges:</p>

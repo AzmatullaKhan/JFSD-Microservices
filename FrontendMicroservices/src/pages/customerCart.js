@@ -74,6 +74,14 @@ export const CustomerCart=()=>{
                 p6.style.fontSize='14px'
                 p6.style.opacity='0.7'
 
+                let input_ele = document.createElement('input')
+                input_ele.value=main_data[i].quantity
+                input_ele.readOnly=true
+                input_ele.className = 'inputNumberField'
+
+                let label = document.createElement('label')
+                label.textContent = "No.of Items"
+
                 mini_div.appendChild(p1)
                 mini_div.appendChild(p2)
                 mini_div.appendChild(p3)
@@ -101,10 +109,13 @@ export const CustomerCart=()=>{
                 main_div.appendChild(img_ele)
                 main_div.appendChild(mini_div)
                 main_div.appendChild(p5)
+
+                main_div.appendChild(label)
+                main_div.appendChild(input_ele)
                 main_div.appendChild(button)
                 
-                items_count=items_count+1;
-                items_cost=items_cost+main_cost_data
+                items_count=items_count+main_data[i].quantity;
+                items_cost=items_cost+(main_cost_data*main_data[i].quantity)
 
                 dressId.push(main_data_images[0])
 

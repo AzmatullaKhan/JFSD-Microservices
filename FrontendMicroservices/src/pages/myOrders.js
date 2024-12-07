@@ -91,6 +91,20 @@ export const MyOrders = () =>{
                     gif_ele.src = require('../images/exporting.gif')
                 else if(order_data[i].deliveredstatus==="delivered")
                     gif_ele.src = require('../images/delivered.png')
+                else if(order_data[i].deliveredstatus==="deleted")
+                    gif_ele.src=require('../images/deleted.png')
+
+                let input_ele = document.createElement('input')
+                input_ele.value=order_data[i].quantity
+                input_ele.readOnly=true
+                input_ele.className = 'inputNumberField'
+                input_ele.style.position="absolute"
+                input_ele.style.margin="0px 0px 0px 625px"
+
+                let label = document.createElement('label')
+                label.style.margin="0px 0px 0px 500px"
+                label.style.position="absolute"
+                label.textContent = "No.of Items"   
 
                 main_div.appendChild(img_ele)
                 main_div.appendChild(mini_div)
@@ -98,6 +112,9 @@ export const MyOrders = () =>{
                 main_div.appendChild(document.createElement('br'))
                 main_div.appendChild(p7)
                 main_div.appendChild(gif_ele)
+
+                main_div.appendChild(label)
+                main_div.appendChild(input_ele)
 
                 document.getElementById('myorder_container_two_id').appendChild(main_div)
 

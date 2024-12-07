@@ -41,6 +41,7 @@ export const Home=()=>{
 
             let p1 = document.createElement('p1')
             p1.textContent = main_name_data
+            p1.id=main_name_data
 
             let p2 = document.createElement('p2')
             const formattedValue = new Intl.NumberFormat('en-IN', {
@@ -53,6 +54,8 @@ export const Home=()=>{
             mini_div.appendChild(p1)
             mini_div.appendChild(p2)
             
+            mini_div.id = main_name_data+" div"
+
             main_div.appendChild(mini_div)
 
             mini_div.addEventListener('click', (e)=>{
@@ -199,13 +202,13 @@ export const Home=()=>{
 
                     formData.append('data1', dressId[0]);
                     formData.append('name', main_data[i].name);
-                    console.log(typeof(main_data[i].name))
+                    // console.log(typeof(main_data[i].name))
                     formData.append('cost', main_data[i].cost);
                     formData.append('materialused', main_data[i].materialUsed);
                     formData.append('description', main_data[i].description);
                     formData.append('publisher', main_data[i].publisher)
                     formData.append('customerid', localStorage.getItem('username'))
-
+                    formData.append('quantity', document.getElementById('numberOfItems').value)
 
                 }
             }
@@ -223,8 +226,51 @@ export const Home=()=>{
         // console.log(dressId)
     };
 
+    const search=(e)=>{
+        const search=e.target.value.toUpperCase();
+        const items=document.getElementById('main_container_two')
+        const pname=items.getElementsByTagName("p1");
+
+        
+        for(var i=0;i<pname.length;i++){
+            let match=pname[i].id;
+            if(match){
+                let textValue=match
+                if(textValue.toUpperCase().indexOf(search)>-1){
+                    document.getElementById(match+' div').className="main_container_two_dress"
+                }
+                else{
+                    document.getElementById(match+' div').className="hidden"
+                }
+                // if(search===""){
+                //     document.getElementById('carousel-main').style.display=""
+                //     console.log("match3")
+
+                // }
+            }
+        }
+    }
+
     return(
         <div className="main_container_one">
+            <input type='text' style={{
+                position:"absolute",
+                margin:"70px 0px 0px 100px",
+                zIndex:"9",
+                backdropFilter:"blur(22px)",
+                backgroundColor:"transparent",
+                height:"30px",
+                width:"500px",
+                borderTopColor:"transparent",           
+                borderRightColor:"transparent",           
+                borderLeftColor:"transparent",  
+                outline:"none",
+                paddingLeft:"30px"         
+                }}
+                onKeyUp={search}
+                placeholder='Search'
+                />
+                <img alt='search' src={require('../images/search.png')} style={{position:"absolute", zIndex:"10", margin:"70px 0px 0px 100px", height:"25px", width:"25px"}}/>
             <Navbar />
             <div style={{position:"absolute",top:'0', zIndex:'1'}} className='main_container_animation'>
                 <img src={require('../images/logo.png')} alt='img' style={{width:"373px",height:"425px",opacity:'0.1'}}/>
@@ -278,6 +324,9 @@ export const Home=()=>{
                             (<button className='main_container_three_button' onClick={handleLoginClick}>Login to create cart</button>)
                         }
                     </div>
+                    <input type='number' className='inputNumberField' min={1} max={10} defaultValue={1} id='numberOfItems' onChange={(e)=>{
+                        localStorage.setItem('quantity', e.target.value)
+                    }}/>
                 </div>  
             </div>
         </div>

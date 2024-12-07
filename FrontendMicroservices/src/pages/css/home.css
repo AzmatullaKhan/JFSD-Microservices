@@ -1,4 +1,19 @@
 
+.hidden{
+    display: none;
+}
+.inputNumberField{
+    height: 30px;
+    width: 50px;
+    border: 1px solid;
+    background-color: transparent;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    backdrop-filter: blur(22px);
+    outline: none;
+
+}
 .main_container_one{
     height: 850px;
     width:1492px;
