@@ -28,6 +28,7 @@ public class EmployeeOrderModel {
 	String buyernumber;
 	String buyersize;
 	String deliveredstatus;
+	String quantity;
 //	String orderedId;
 	
 	public int getId() {
@@ -35,6 +36,12 @@ public class EmployeeOrderModel {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public String getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
 	}
 	public String getDressname() {
 		return dressname;

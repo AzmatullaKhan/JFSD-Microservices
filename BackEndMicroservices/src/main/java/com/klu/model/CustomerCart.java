@@ -40,7 +40,18 @@ public class CustomerCart {
     @Column(name = "customerId")
     String customerId;
     
-    public String getPublisher() {
+    @Column(name = "quantity")
+    String quantity;
+    
+    public String getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getPublisher() {
 		return publisher;
 	}
 

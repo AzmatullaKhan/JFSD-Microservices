@@ -26,7 +26,17 @@ public class OrderModel {
 	Integer amount;
 	String razorpayOrderId;
 	String orderStatus;
+	String quantity;
 	
+	public String getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
+	}
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
+	}
 	@Override
 	public String toString() {
 		return "OrderModel [orderId=" + orderId + ", name=" + name + ", mobileNumber=" + mobileNumber + ", pincode="

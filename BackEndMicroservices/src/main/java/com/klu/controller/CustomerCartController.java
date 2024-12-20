@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/customercart")
-@CrossOrigin(origins = "http://localhost:3000") 
+@CrossOrigin(origins = {"http://localhost:3000","https://looomcraft.vercel.app"}) 
 public class CustomerCartController {
 	
 	@Autowired
@@ -35,10 +35,11 @@ public class CustomerCartController {
             @RequestParam("materialused") String materialused,
             @RequestParam("description") String description,
             @RequestParam("publisher") String publisher,
-            @RequestParam("customerid") String customerId
+            @RequestParam("customerid") String customerId,
+            @RequestParam("quantity") String quantity
             ){
 		try {
-			CustomerCart cc = ccs.saveDress(data1, name, cost, materialused, description, publisher, customerId);
+			CustomerCart cc = ccs.saveDress(data1, name, cost, materialused, description, publisher, customerId, quantity);
 			return new ResponseEntity<>(cc, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<>("Error whilse save images:"+e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -78,7 +79,8 @@ public class CustomerCartController {
                     customerCart.getMaterialused(),
                     customerCart.getDescription(),
                     customerCart.getPublisher(),
-                    customerCart.getCustomerId()
+                    customerCart.getCustomerId(),
+                    customerCart.getQuantity()
 					);
 			
 			allCartDetails.add(cartDetails);

@@ -11,6 +11,7 @@ public class CustomerCartDetailResponse {
     private String description;
     private String publisher;
     private String customerId;
+    private String quantity;
     
 	public String getCustomerId() {
 		return customerId;
@@ -66,7 +67,7 @@ public class CustomerCartDetailResponse {
 				+ publisher + "]";
 	}
 	public CustomerCartDetailResponse(Long id, List<String> images, String name, String cost,
-			String materialUsed, String description, String publisher, String customerId) {
+			String materialUsed, String description, String publisher, String customerId, String quantity) {
 		super();
 		this.id = id;
 		this.images = images;
@@ -76,6 +77,13 @@ public class CustomerCartDetailResponse {
 		this.description = description;
 		this.publisher = publisher;
 		this.customerId=customerId;
+		this.quantity = quantity;
+	}
+	public String getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
 	}
     
 }

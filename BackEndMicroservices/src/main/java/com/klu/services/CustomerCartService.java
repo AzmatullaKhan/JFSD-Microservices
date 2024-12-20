@@ -16,7 +16,7 @@ public class CustomerCartService {
 	@Autowired
 	private CustomerCartRepository CCR;
 	
-	public CustomerCart saveDress(String data1, String name, String cost, String materialused, String description, String publisher, String customerId) throws IOException {
+	public CustomerCart saveDress(String data1, String name, String cost, String materialused, String description, String publisher, String customerId,String quantity) throws IOException {
 		
 		CustomerCart cc = new CustomerCart();
 		cc.setCost(cost);
@@ -27,7 +27,7 @@ public class CustomerCartService {
 		cc.setCustomerId(customerId);
 		
 		cc.setData1(data1);
-		
+		cc.setQuantity(quantity);
 		return CCR.save(cc);
 	}
 	
